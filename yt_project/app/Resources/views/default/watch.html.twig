@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="contentWrapper">
+        <div class="videoContent">
+            <div class="playerWrapper">
+               <!-- testovo --> <iframe id="player" frameborder="0" allowfullscreen="1" title="YouTube video player" width="854" height="480" src="https://www.youtube.com/embed/ZLO4X6UI8OY?fs=0&amp;enablejsapi=1&amp;origin=http%3A%2F%2Fzhekavasil.by&amp;widgetid=1"></iframe>
+                <div id="player"></div>
+                <div class="infoWrapper">
+                    <div id="info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bt_wrapper">
+        <div class="tr_button">
+            <input type="button" value="ORIGINAL" id="original_bt" disabled >
+        </div>
+        <div class="tr_button">
+            <input type="button" value="{{ aud }}" id="translate_bt" >
+        </div>
+    </div>
+    <!--<audio controls id="audio">
+        <source id="mp3" type='audio/mpeg'>
+    </audio>-->
+    <div id="progress"></div>
+
+
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+
+    .contentWrapper {
+        text-align: center;
+    }
+    .contentWrapper .videoContent {
+        float: none;
+        width: auto;
+    }
+    .bt_wrapper {
+        display: none;
+        text-align: center;
+    }
+    .tr_button {
+        display: inline-block;
+    }
+    audio {
+        display: none;
+    }
+    progress {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        border-radius: 2px;
+    }
+    progress[value] {
+        /* Reset the default appearance */
+        -webkit-appearance: none;
+        appearance: none;
+
+        width: 100%;
+        height: 2px;
+    }
+    progress[value]::-webkit-progress-bar {
+        background-color: #eee;
+        border-radius: 2px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+    }
+    progress[value]::-webkit-progress-value {
+        background: red;
+    }
+    #original_bt {
+        display: none;
+    }
+</style>
+{% endblock %}
+{% block script %}
+<script>
+</script>
+{% endblock %}
