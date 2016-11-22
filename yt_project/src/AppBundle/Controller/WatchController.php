@@ -18,6 +18,10 @@ class WatchController extends Controller
         $aud = json_encode($aud);
         $aud = json_encode($aud);
         $aud = json_encode($aud);
+        $aud = json_encode($aud);
+        $aud = json_encode($aud);
+        $aud = json_encode($aud);
+        $aud = json_encode($aud);
         // replace this example code with whatever you need
         return $this->render('default/watch.html.twig',[
             'aud' => $aud,
