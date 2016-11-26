@@ -9,7 +9,6 @@
         <form name="addform" enctype="multipart/form-data" method="post" ><!-- subeditor.php-->
             <label>Ссылка: <input type="text" name="idvid" id="idvid" required placeholder="https://www.youtube.com/watch?v=iFbpMoOFjqM"></label><br>
             <label>Аудио перевод: <input type="file" name="audio" id="audio"></label><br>
-            <!-- <label>AUD: <input type="file" name="idaud" id="idaud" ></label>-->
             <input type="submit" id="bt" value="OK">
             <a href="{{ path('index') }}">
             <input type="button" id="cancel" value="Отмена">
@@ -17,6 +16,7 @@
         </form>
         </div>
     </div>
+    <div style="background-color: white" id="test"></div>
 
 
 {% endblock %}
@@ -101,67 +101,31 @@
 
 </style>
 {% endblock %}
-{% block script %}
-<script>/*
-    var addForm = document.getElementsByClassName('addNewContent')[0];
-    addForm.addEventListener('click', addPage);
-    function addPage() {
+{% block scripts %}
+<script>
+   var bt = document.getElementById('bt');
+   var audio = document.getElementById('audio');
+    bt.addEventListener('click', uploadFile);
+
+    function uploadFile() {
+        var data = new FormData();
+        var file = audio.files[0];
+        var idvid = document.getElementById('idvid');
+        data.append('file', file);
+        data.append('idvid', idvid.value);
         var request = new XMLHttpRequest();
-        request.addEventListener('load', show);
-        request.open("POST","addpage.php", true);
-        request.send(null);
-        function show(e) {
-            var data = e.target;
-            if(data.status == 200){
-                var div = document.createElement('div');
-                div.setAttribute('class', 'formWrapper');
-
-                div.innerHTML = data.responseText;
-                document.body.appendChild(div);
-                setTimeout(function () {
-                    div.classList.add('show');
-                },10);
-                closeModal();
-
-            }
-        }
+        request.addEventListener('load', showResult);
+        request.open("POST","insertform.php", true);
+        request.send(data);
     }
 
-
-    var moreBtn = document.getElementById('moreBtn');
-    moreBtn.addEventListener("click", showMoreContent);
-    var pageIndex = 10;
-    function showMoreContent(){
-        this.setAttribute('disabled','');
-        var data = new FormData();
-        data.append('pageIndex',pageIndex );
-        var request = new XMLHttpRequest();
-        request.addEventListener('load', addMoreContent);
-        request.open("POST","loadingByPices.php", true);
-        request.send(data);
-
-
-
-        pageIndex+=10;
-    };
-    function addMoreContent(e){
+    function showResult(e){
         var data = e.target;
         if (data.status == 200) {
-            var picewrapper = document.createElement('div');
-            picewrapper.setAttribute('class', 'main');
-            picewrapper.innerHTML = data.responseText;
-            document.body.appendChild(picewrapper);
-            moreBtn.removeAttribute('disabled');
+            var test = document.getElementById('test');
+            test.innerHTML = data.responseText;
+
         }
     }
-
-    function closeModal() {
-        var cancelBtn = document.getElementById('cancel');
-        cancelBtn.addEventListener('click',close);
-        function close() {
-            var modal = document.getElementsByClassName('formWrapper')[0];
-            document.body.removeChild(modal);
-        }
-    }*/
 </script>
 {% endblock %}
