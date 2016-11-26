@@ -1,0 +1,55 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <div style="color: #FFF;">{{ test }}</div>
+    <div class="main">
+        <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+        <div class="contentWrapper">
+            <div class="videoContent">
+                <div class="playerWrapper">
+                    <div id="player"></div>
+                    <div class="infoWrapper">
+                        <div id="info"></div>
+                    </div>
+                </div>
+
+                <div id="timeZoneWrapper">
+                    <div id="timeZone">
+                        <div id="pointer">
+                            <div class="drupper"></div>
+                        </div>
+                        <canvas id="canvas" height="100"></canvas>
+                    </div>
+                </div>
+
+
+                <!--<div id="currentTimeDiv"></div>-->
+            </div>
+            <div class="subContent">
+                <div class="inputText">
+                    <textarea id="tempText" disabled placeholder="Введите текст субтитров и нажмите  Enter, для переноса строки нажмите Shift+Enter"></textarea>
+                    <input type="button" value="+" id="addBtn">
+                </div>
+                <div class="outputSub">
+                    <div class="onceOutputSub">
+
+                        <textarea></textarea><input type="button" value="-">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="button" value="Готово" id="btn">
+        <!--<input type="button" value="Send Subtitles" id="btnAjax">-->
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+</style>
+{% endblock %}
+{% block script %}
+<script>
+</script>
+{% endblock %}
