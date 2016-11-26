@@ -13,18 +13,16 @@ class WatchController extends Controller
      */
     public function WatchAction(Request $request)
     {
-        $aud = $request->query->all();
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
-        $aud = json_encode($aud);
+        $array = $request->query->all();
+        $json = json_encode($array);
+
+        //$audio = $array['audurl'];
+
+
         // replace this example code with whatever you need
         return $this->render('default/watch.html.twig',[
-            'aud' => $aud,
+            'json' => $json,
+            //'audio' => $audio,
         ]);
     }
 }

@@ -1,10 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
+
+
 
 {% block body %}
     <div class="contentWrapper">
         <div class="videoContent">
             <div class="playerWrapper">
-               <!-- testovo --> <iframe id="player" frameborder="0" allowfullscreen="1" title="YouTube video player" width="854" height="480" src="https://www.youtube.com/embed/ZLO4X6UI8OY?fs=0&amp;enablejsapi=1&amp;origin=http%3A%2F%2Fzhekavasil.by&amp;widgetid=1"></iframe>
                 <div id="player"></div>
                 <div class="infoWrapper">
                     <div id="info"></div>
@@ -17,13 +18,15 @@
             <input type="button" value="ORIGINAL" id="original_bt" disabled >
         </div>
         <div class="tr_button">
-            <input type="button" value="{{ aud }}" id="translate_bt" >
+            <input type="button" value="" id="translate_bt" >
         </div>
     </div>
+
     <!--<audio controls id="audio">
         <source id="mp3" type='audio/mpeg'>
     </audio>-->
-    <div id="progress"></div>
+    <div id="progress" style="color: white;"></div>
+
 
 
 {% endblock %}
@@ -76,7 +79,32 @@
     }
 </style>
 {% endblock %}
-{% block script %}
+{% block scripts %}
 <script>
+    var $_GET  = true ;
+    var newTag = document.createElement('script');
+    if ($_GET.audurl == 'true') {
+        try {
+            /* var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+             newTag.setAttribute('src', 'scripts/watch.webAudio.js');
+             document.body.appendChild(newTag);*/
+            newTag.setAttribute('src', '{{ asset('scripts/watch.audioTag_and_audio.js') }}');
+            document.body.appendChild(newTag);
+        } catch (e) {
+            newTag.setAttribute('src', 'scripts/watch.audioTag_and_audio.js');
+            document.body.appendChild(newTag);
+        }
+    } else {
+        try {
+            /* var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+             newTag.setAttribute('src', 'scripts/watch.webAudio.js');
+             document.body.appendChild(newTag);*/
+            newTag.setAttribute('src', 'scripts/watch.audioTag.js');
+            document.body.appendChild(newTag);
+        } catch (e) {
+            newTag.setAttribute('src', 'scripts/watch.audioTag.js');
+            document.body.appendChild(newTag);
+        }
+    }
 </script>
 {% endblock %}

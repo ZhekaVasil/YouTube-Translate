@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{  asset('css/style.css') }}">
+
+       {# <script src="{{ asset('scripts/jquery.min.js') }}"></script>
+        <script src="{{ asset('scripts/subeditor.js') }}"></script>
+        <script src="{{ asset('scripts/preview.audioTag.js') }}"></script>
+        <script src="{{ asset('scripts/subeditor_and_audio.js') }}"></script>
+        <script src="{{ asset('scripts/watch.audioTag.js') }}"></script>
+        <script src="{{ asset('scripts/watch.audioTag_and_audio.js') }}"></script>
+        <script src="{{ asset('scripts/watch.webAudio.js') }}"></script>#}
+
+
+
+    </head>
+    <body>
+    <header><!-- Components/header.php Start -->
+        <div class="container">
+            <div class="home">
+                <a href="{{ path('index') }}" title="HOME">
+                    <svg width="50" height="50" fill=#fff xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px"
+                         viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<path d="M256,0l256,256h-80L256,80L80,256H0L256,0z M256,144L96,304v208h96V384h128v128h96V304L256,144z"/>
+</svg>
+                </a>
+            </div>
+
+
+            <!--<span>pre alfa</span>-->
+        </div>
+    </header><!-- Components/header.php End -->
+        {% block body %}{% endblock %}
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
