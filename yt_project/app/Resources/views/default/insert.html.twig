@@ -6,10 +6,10 @@
     <div class="formContainer">
 
         <h3>Добавить видео</h3>
-        <form name="addform" enctype="multipart/form-data" method="post" ><!-- subeditor.php-->
+        <form name="addform" enctype="multipart/form-data" method="post" action="/subeditor" ><!-- subeditor.php-->
             <label>Ссылка: <input type="text" name="idvid" id="idvid" required placeholder="https://www.youtube.com/watch?v=iFbpMoOFjqM"></label><br>
             <label>Аудио перевод: <input type="file" name="audio" id="audio"></label><br>
-            <input type="submit" id="bt" value="OK">
+            <input type="submit" value="OK">
             <a href="{{ path('index') }}">
             <input type="button" id="cancel" value="Отмена">
             </a>
@@ -102,30 +102,5 @@
 </style>
 {% endblock %}
 {% block scripts %}
-<script>
-   var bt = document.getElementById('bt');
-   var audio = document.getElementById('audio');
-    bt.addEventListener('click', uploadFile);
 
-    function uploadFile() {
-        var data = new FormData();
-        var file = audio.files[0];
-        var idvid = document.getElementById('idvid');
-        data.append('file', file);
-        data.append('idvid', idvid.value);
-        var request = new XMLHttpRequest();
-        request.addEventListener('load', showResult);
-        request.open("POST","insertform.php", true);
-        request.send(data);
-    }
-
-    function showResult(e){
-        var data = e.target;
-        if (data.status == 200) {
-            var test = document.getElementById('test');
-            test.innerHTML = data.responseText;
-
-        }
-    }
-</script>
 {% endblock %}
