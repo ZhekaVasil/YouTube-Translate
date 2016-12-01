@@ -11,6 +11,8 @@
   ],
   "require": {
     "symfony/symfony": "v3.1.4",
-    "symfony/assetic-bundle": "v2.8.0"
+    "symfony/assetic-bundle": "v2.8.0",
+    "deresh/sfform": "dev-master",
+    "symfony/form": "3.2.x-dev"
   }
 }

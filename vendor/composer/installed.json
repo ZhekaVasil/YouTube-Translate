@@ -1205,5 +1205,112 @@
             "portable",
             "shim"
         ]
+    },
+    {
+        "name": "deresh/sfform",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/deresh/sfform.git",
+            "reference": "8b6d49224f7041092afa169202c48557113fa59e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/deresh/sfform/zipball/8b6d49224f7041092afa169202c48557113fa59e",
+            "reference": "8b6d49224f7041092afa169202c48557113fa59e",
+            "shasum": ""
+        },
+        "time": "2013-12-13 14:34:01",
+        "type": "library",
+        "installation-source": "source",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Krešo Kunjas",
+                "email": "kreso@omegamedia.hr"
+            }
+        ],
+        "description": "Standalone symfony1.4 forms"
+    },
+    {
+        "name": "symfony/form",
+        "version": "3.2.x-dev",
+        "version_normalized": "3.2.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/form.git",
+            "reference": "a4866cfe14de964673ec679ec61a74567b7e1882"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/form/zipball/a4866cfe14de964673ec679ec61a74567b7e1882",
+            "reference": "a4866cfe14de964673ec679ec61a74567b7e1882",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9",
+            "symfony/event-dispatcher": "~2.8|~3.0",
+            "symfony/intl": "~2.8|~3.0",
+            "symfony/options-resolver": "~2.8|~3.0",
+            "symfony/polyfill-mbstring": "~1.0",
+            "symfony/property-access": "~2.8|~3.0"
+        },
+        "conflict": {
+            "symfony/doctrine-bridge": "<2.7",
+            "symfony/framework-bundle": "<2.7",
+            "symfony/twig-bridge": "<2.7"
+        },
+        "require-dev": {
+            "doctrine/collections": "~1.0",
+            "symfony/dependency-injection": "~2.8|~3.0",
+            "symfony/http-foundation": "~2.8|~3.0",
+            "symfony/http-kernel": "~2.8|~3.0",
+            "symfony/security-csrf": "~2.8|~3.0",
+            "symfony/translation": "~2.8|~3.0",
+            "symfony/validator": "~2.8|~3.0",
+            "symfony/var-dumper": "~3.2"
+        },
+        "suggest": {
+            "symfony/framework-bundle": "For templating with PHP.",
+            "symfony/security-csrf": "For protecting forms against CSRF attacks.",
+            "symfony/twig-bridge": "For templating with Twig.",
+            "symfony/validator": "For form validation."
+        },
+        "time": "2016-11-25 12:32:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Form\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Form Component",
+        "homepage": "https://symfony.com"
     }
 ]

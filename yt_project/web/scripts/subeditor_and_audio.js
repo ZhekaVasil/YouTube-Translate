@@ -40,11 +40,11 @@ function read() {
 
 
     var audioName = 'audio.mp3';
-    var video_id = $_POST['idvid'].split('v=')[1];
-    var ampersandPosition = video_id.indexOf('&');
-    if (ampersandPosition != -1) {
+    var video_id = $_POST;
+    //var ampersandPosition = video_id.indexOf('&');
+    /*if (ampersandPosition != -1) {
         video_id = video_id.substring(0, ampersandPosition);
-    }
+    }*/
     audUrl_mp3 = 'preview/' + video_id + '/audio.mp3';
     var request_mp3;
 
@@ -108,11 +108,11 @@ function showAud_mp3(e) {
     };
 
 
-    var video_id = $_POST['idvid'].split('v=')[1];
-    var ampersandPosition = video_id.indexOf('&');
-    if (ampersandPosition != -1) {
+    var video_id = $_POST;
+    //var ampersandPosition = video_id.indexOf('&');
+    /*if (ampersandPosition != -1) {
         video_id = video_id.substring(0, ampersandPosition);
-    }
+    }*/
 // 2. This code loads the IFrame Player API code asynchronously.
     var tag = document.createElement('script');
 

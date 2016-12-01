@@ -14,14 +14,17 @@ class SubeditorController extends Controller
     public function indexAction(Request $request)
     {
         $id = '';
+        $audio = NULL;
         // проверяем есть ли POST запрос от формы
         if($request->request->get('idvid')) {
             //в переменную $id записываем id видюшки
             $mas = explode('v=', $request->request->get('idvid'));
             $part = $mas[1];
             $id = substr($part, 0, 11);
+
             // проверяем есть ли аудио в запросе
             if(is_uploaded_file($request->files->get('audio'))) {
+                    $audio = true;
                 //если аудио есть, то создаем папку внутри 'preview', папку именуем как id видюшки
                 if(!is_dir('preview/'.$id)){
                     mkdir('preview/'.$id);
@@ -35,6 +38,7 @@ class SubeditorController extends Controller
         // просто выводим id видюшки в твиге
         return $this->render('default/subeditor.html.twig',[
             'id' => $id,
+            'audio' => $audio,
         ]);
     }
 }

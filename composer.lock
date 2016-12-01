@@ -4,9 +4,37 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1f24787024175f1cc09fbcd021e5c637",
-    "content-hash": "4ec2ca8871593c09ded0796d76b4d86b",
+    "hash": "c5199ce79ea6f6252b9a0a02a1b63fd7",
+    "content-hash": "e8504520b17269c1666b546766ae0277",
     "packages": [
+        {
+            "name": "deresh/sfform",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deresh/sfform.git",
+                "reference": "8b6d49224f7041092afa169202c48557113fa59e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deresh/sfform/zipball/8b6d49224f7041092afa169202c48557113fa59e",
+                "reference": "8b6d49224f7041092afa169202c48557113fa59e",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Krešo Kunjas",
+                    "email": "kreso@omegamedia.hr"
+                }
+            ],
+            "description": "Standalone symfony1.4 forms",
+            "time": "2013-12-13 14:34:01"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.3.0",
@@ -694,6 +722,81 @@
             "time": "2015-12-28 13:12:39"
         },
         {
+            "name": "symfony/form",
+            "version": "3.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/form.git",
+                "reference": "a4866cfe14de964673ec679ec61a74567b7e1882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/form/zipball/a4866cfe14de964673ec679ec61a74567b7e1882",
+                "reference": "a4866cfe14de964673ec679ec61a74567b7e1882",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/event-dispatcher": "~2.8|~3.0",
+                "symfony/intl": "~2.8|~3.0",
+                "symfony/options-resolver": "~2.8|~3.0",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/property-access": "~2.8|~3.0"
+            },
+            "conflict": {
+                "symfony/doctrine-bridge": "<2.7",
+                "symfony/framework-bundle": "<2.7",
+                "symfony/twig-bridge": "<2.7"
+            },
+            "require-dev": {
+                "doctrine/collections": "~1.0",
+                "symfony/dependency-injection": "~2.8|~3.0",
+                "symfony/http-foundation": "~2.8|~3.0",
+                "symfony/http-kernel": "~2.8|~3.0",
+                "symfony/security-csrf": "~2.8|~3.0",
+                "symfony/translation": "~2.8|~3.0",
+                "symfony/validator": "~2.8|~3.0",
+                "symfony/var-dumper": "~3.2"
+            },
+            "suggest": {
+                "symfony/framework-bundle": "For templating with PHP.",
+                "symfony/security-csrf": "For protecting forms against CSRF attacks.",
+                "symfony/twig-bridge": "For templating with Twig.",
+                "symfony/validator": "For form validation."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Form\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Form Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-11-25 12:32:42"
+        },
+        {
             "name": "symfony/polyfill-intl-icu",
             "version": "v1.3.0",
             "source": {
@@ -1182,7 +1285,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "deresh/sfform": 20,
+        "symfony/form": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

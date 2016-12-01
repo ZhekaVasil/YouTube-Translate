@@ -41,6 +41,72 @@
         <input type="button" value="Готово" id="btn">
         <!--<input type="button" value="Send Subtitles" id="btnAjax">-->
     </div>
+{% if audio %}
+    <audio controls id="audio" preload="metadata">
+    </audio>
+    <div id="progress_mp3"></div>
+    <div id="progress_ogg"></div>
+    <div class="bt_wrapper">
+        <div class="tr_button">
+            <input type="button" value="ORIGINAL" id="original_bt" disabled >
+        </div>
+        <div class="tr_button">
+            <input type="button" value="TRANSLATE" id="translate_bt" >
+        </div>
+    </div>
+    <script>
+        var checkAjax = false;
+       // var $_FILES = <?php echo json_encode($_FILES); ?>;
+        var $_POST ="{{ id }}";
+        var audUrl = true;
+        var btn = document.getElementById('btn');
+        btn.addEventListener('click', addToSQL);
+        function addToSQL() {
+            this.disabled = true;
+            makeAjax();
+        }
+        function actWhenLoad() {
+            window.location.href = "watch?idvid="+"{{ id }}"+'&audurl='+audUrl;
+    }
+        var newTag = document.createElement('script');
+        try {
+            /*var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+             newTag.setAttribute('src', 'scripts/preview.webAudio.js');*/
+            newTag.setAttribute('src', 'scripts/subeditor_and_audio.js');
+        } catch (e){
+            newTag.setAttribute('src', 'scripts/subeditor_and_audio.js');
+        } finally {
+            document.body.appendChild(newTag);
+        }
+        function makeAjax() {
+            var data = new FormData();
+            data.append('subtitles', JSON.stringify(subtitles));
+            data.append('idvid', video_id);
+            var url = 'sendSubtitles.php';
+            var request = new XMLHttpRequest();
+            request.responseType = 'json';
+            request.addEventListener('load', loadAjax);
+            request.open('POST', url, true);
+            request.send(data);
+            function loadAjax(e) {
+                var data = e.target;
+                if (data.status == 200) {
+                    var data = new FormData();
+                    data.append('idvid',"{{ id }}");
+                data.append('audurl', audUrl);
+                var request = new XMLHttpRequest();
+                /* var xmlupload = request.upload;*/
+                request.addEventListener('load', actWhenLoad);
+                request.open('POST', 'adding_and_audio.php', true);
+                request.send(data);
+            } else {
+                console.log('checkAjax no check');
+            }
+        }
+    }
+    </script>
+{% endif %}
+
 
 {% endblock %}
 

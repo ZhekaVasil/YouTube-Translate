@@ -10,6 +10,7 @@ return array(
     'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Polyfill\\Php56\\' => array($vendorDir . '/symfony/polyfill-php56'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Component\\Form\\' => array($vendorDir . '/symfony/form'),
     'Symfony\\Component\\' => array($vendorDir . '/symfony/symfony/src/Symfony/Component'),
     'Symfony\\Bundle\\AsseticBundle\\' => array($vendorDir . '/symfony/assetic-bundle'),
     'Symfony\\Bundle\\' => array($vendorDir . '/symfony/symfony/src/Symfony/Bundle'),

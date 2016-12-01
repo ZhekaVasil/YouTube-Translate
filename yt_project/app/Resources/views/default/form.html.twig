@@ -1,0 +1,27 @@
+
+
+{% block body %}
+
+    <div>{{ print }}</div>
+
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <input type="submit" />
+        {{ form_end(form) }}
+
+    </div>
+    <div>{{ print2 }}</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+</style>
+{% endblock %}
+{% block script %}
+<script>
+</script>
+{% endblock %}
