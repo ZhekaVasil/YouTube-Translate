@@ -21,11 +21,11 @@ tempText.onkeyup = function (e) {
 };
 
 
-var video_id = $_POST['idvid'].split('v=')[1];
-var ampersandPosition = video_id.indexOf('&');
+var video_id = $_POST;
+/*var ampersandPosition = video_id.indexOf('&');
 if (ampersandPosition != -1) {
     video_id = video_id.substring(0, ampersandPosition);
-}
+}*/
 // 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
 

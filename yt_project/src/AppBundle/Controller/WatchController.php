@@ -15,14 +15,13 @@ class WatchController extends Controller
     {
         $array = $request->query->all();
         $json = json_encode($array);
-
-        //$audio = $array['audurl'];
+        $audio = $array['audurl'];
 
 
         // replace this example code with whatever you need
         return $this->render('default/watch.html.twig',[
             'json' => $json,
-            //'audio' => $audio,
+            'audio' => $audio,
         ]);
     }
 }

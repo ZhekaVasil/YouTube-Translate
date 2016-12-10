@@ -20,18 +20,6 @@ class FormController extends Controller
      */
     public function FormAction(Request $request)
     {
-        //http://symfony.com/doc/3.1/components/form.html
-        //http://php.net/move_uploaded_file
-
-        //link composer symfony form
-        //link composer sfforms
-        //php composer.phar require symfony/twig-bridge
-
-        //php composer.phar require vich/uploaded-bundle  !NOT USE
-        //http://paperplane.su/kak-organizovat-zagruzku-fajlov-s-pomoshhyu-doctrine/  ENTITY use DOCTRINE
-        // http://symfonydev.ru/iphpfilestorebundle/  WILL USE
-        // Register Bundles for intity  bin/console doctrine:generate:entities AcmeDemoBundle:MyEntity
-        //console doctrine:generate:entities MyBundle
 
 
         $defaults = array(

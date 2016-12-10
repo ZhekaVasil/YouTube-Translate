@@ -2,7 +2,7 @@ var video_id = window.location.href.split('idvid=')[1];
 var ampersandPosition = video_id.indexOf('&');
 if (ampersandPosition != -1) {
     video_id = video_id.substring(0, ampersandPosition);
-};
+}
 window.onload = function () {
     var bt_wrapper = document.getElementsByClassName('bt_wrapper')[0];
     var original_bt = document.getElementById('original_bt');

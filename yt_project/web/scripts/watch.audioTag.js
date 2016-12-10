@@ -7,7 +7,7 @@ window.onload = function () {
 
     var subtitles;
     makeAjax();
-}
+};
 
 var info = document.getElementById('info');
 

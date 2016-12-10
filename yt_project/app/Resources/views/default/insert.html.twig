@@ -9,7 +9,7 @@
         <form name="addform" enctype="multipart/form-data" method="post" action="/subeditor" ><!-- subeditor.php-->
             <label>Ссылка: <input type="text" name="idvid" id="idvid" required placeholder="https://www.youtube.com/watch?v=iFbpMoOFjqM"></label><br>
             <label>Аудио перевод: <input type="file" name="audio" id="audio"></label><br>
-            <input type="submit" value="OK">
+            <input type="submit" value="OK" id="ok">
             <a href="{{ path('index') }}">
             <input type="button" id="cancel" value="Отмена">
             </a>
@@ -17,42 +17,39 @@
         </div>
     </div>
     <div style="background-color: white" id="test"></div>
+    <div class="loaderWrapper">
+        <div class="loader" id="loader-4">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 
 
 {% endblock %}
 
 {% block stylesheets %}
 <style>
-
-    .addNewContent {display: none;}
-
-
-
-
-    /*.formWrapper {
-        opacity: 0;
-        /*background: rgba(0,0,0,.9);
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+    body {
+        text-align: center;
+    }
+    .formWrapper {
+        opacity: 1;
+        background: rgba(0,0,0,.9);
         margin: 0 auto;
         -webkit-transition: all .3s linear;
         -moz-transition: all .3s linear;
         -ms-transition: all .3s linear;
         -o-transition: all .3s linear;
         transition: all .3s linear;
-    }/*
-    .show {
-        opacity: 1;
     }
+
     .formWrapper .formContainer {
         position: absolute;
         top: 150px;
         width: 80%;
         height: 310px;
-        /*background:#000000;
+        background:#000000;
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -76,31 +73,18 @@
         margin-top: 50px;
         width: 100px;
         height: 50px;
-
         font: bold 14px sans-serif ;
     }
-
-    .main .itemWrapper {
-        margin: 0 0 30px;
-    }
-    .main .itemWrapper .item{
-        display: inline-block;
-        overflow: hidden;
-        border: 2px solid #fff;
-
-    }
-    .main .itemWrapper .item img {
-        margin-bottom: -4px;
-        -webkit-transition: all .4s ease-in-out;
-        -moz-transition: all .4s ease-in-out;
-        -ms-transition: all .4s ease-in-out;
-        -o-transition: all .4s ease-in-out;
-        transition: all .4s ease-in-out;
-    }
-
 
 </style>
 {% endblock %}
 {% block scripts %}
-
+    <script>
+        var form = document.forms.addform;
+    var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
+    var okbutton = document.getElementById('ok');
+        form.onsubmit = function () {
+        loaderWrapper.style.display = 'table';
+    }
+    </script>
 {% endblock %}

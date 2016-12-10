@@ -31,7 +31,7 @@ class IndexController extends Controller
         }
 
 
-        $res = $conn->fetchall("SELECT * FROM `vid` LIMIT 0,10");//main conn
+        $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,10");//main conn
        /* $resmore = $conn->fetchall("SELECT * FROM `vid` LIMIT 10,10");//test conn*/
         $watch = "http://127.0.0.1:8000/watch";
         $add_new_content = "http://127.0.0.1:8000/insert";
