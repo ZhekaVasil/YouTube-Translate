@@ -30,8 +30,8 @@ var player;
 var subtitles = [];
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '480',
-        width: '854',
+        height: '720',
+        width: '1280',
         videoId: video_id,
        /* playerVars: { 'autoplay': 1 },*/
        playerVars: {

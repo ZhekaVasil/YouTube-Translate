@@ -8,7 +8,7 @@ window.onload = function () {
     var original_bt = document.getElementById('original_bt');
     var translate_bt = document.getElementById('translate_bt');
     bt_wrapper.style.display = 'block';
-    original_bt.onclick = function () {
+  /*  original_bt.onclick = function () {
         audio.volume = 0;
         player.unMute();
         original_bt.setAttribute('disabled','');
@@ -23,7 +23,7 @@ window.onload = function () {
         translate_bt.style.display = 'none';
         original_bt.removeAttribute('disabled');
         original_bt.style.display = 'inline-block';
-    };
+    };*/
     var subtitles;
     makeAjax();
 };
@@ -100,8 +100,8 @@ var player;
 var subtitles = [];
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '480',
-        width: '854',
+        height: '720',
+        width: '1280',
         videoId: video_id,
         /* playerVars: { 'autoplay': 1 },*/
         playerVars: {
@@ -268,6 +268,20 @@ function  makeAjax() {
     function loadAjax(e) {
         var data = JSON.parse(e.target.response);
         subtitles = data;
-
     }
 }
+
+var toggle = document.getElementById('switch-2');
+var note = document.getElementById('note');
+toggle.onchange = function () {
+    if(this.checked){
+        note.classList.remove('mute');
+        audio.volume = 1;
+        player.mute();
+    } else {
+        note.classList.add('mute');
+        audio.volume = 0;
+        player.unMute();
+    }
+
+};

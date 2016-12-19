@@ -1,6 +1,194 @@
-{% extends 'base2.html.twig' %}
+{% extends 'base3.html.twig' %}
+{% block stylesheets %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        header .container .addNewContent {
+            display: none!important;
+        }
+        .main {
+            max-width: 1204px;
+            position: relative;
+            top: 100px;
+            border: 2px solid #ca2626;
+            background: #0f0f0f;
+            text-align: center;
+            -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 1);
+            -moz-box-shadow:    2px 2px 10px 0px rgba(0, 0, 0, 1);
+            box-shadow:         2px 2px 10px 0px rgba(0, 0, 0, 1);
+        }
+        .mainWrapper {
+            padding: 0 15px;
+        }
+        #btn {
+            width: 100px;
+            height: 50px;
+            margin: 25px 0 10px 0;
+            font: bold 14px sans-serif ;
+        }
+        div.popup {
+            position: absolute;
+            top: 150px;
+            width: 80%;
+            background: #000000;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            padding: 10px 0;
+            border: 3px solid #0a0a0a;
+            border-radius: 10px;
+            text-align: center;
+            font-family: sans-serif;
+            color: #fff;
+            font-size: 32px ;
+        }
+        div.popup a {
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            color: rgba(219, 219, 219, 0.68);
 
+        }
+
+        .bt_wrapper {
+            display: none;
+            height: 40px;
+            background-color: #373737;
+            position: fixed;
+            left: 0;
+            right: 0;
+            text-align: left;
+            transition: bottom .2s linear;
+        }
+        .bt_wrapper> *{
+            display: inline-block;
+        }
+        .tr_button {
+            display: inline-block;
+        }
+        audio {
+            display: none;
+        }
+        progress {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            border-radius: 2px;
+        }
+        progress[value] {
+            /* Reset the default appearance */
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 2px;
+        }
+        progress[value]::-webkit-progress-bar {
+            background-color: #eee;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+        }
+        progress[value]::-webkit-progress-value {
+            background: red;
+        }
+        #original_bt {
+            display: none;
+        }
+
+
+        /*========================
+                   MATIRIA
+        =========================*/
+        .mdl-layout {
+            padding-bottom: 40px;
+        }
+        .mdl-layout__drawer {
+            z-index: 101;
+        }
+        .mdl-layout__container {
+            top:0;
+        }
+        .mdl-textfield__input {
+            color: white;
+            padding-left: 10px;
+            padding-right: 87px;
+            box-sizing: border-box;
+        }
+        .mdl-textfield__label {
+            padding: 0 0 0 10px;
+            box-sizing: border-box;
+        }
+        .onceOutputSub .mdl-button {
+            right: 27px;
+            top:0;
+        }
+
+        .note.mute {
+            background-color: rgba(255, 0, 0, 0.55);
+        }
+        .note {
+            background-color: #4f805d;
+            line-height: 40px;
+            padding: 0 10px;
+            margin-right: 17px;
+            transition: all .2s linear;
+        }
+        .note i {
+            vertical-align: middle;
+        }
+        .audName {
+            color: white;
+            margin-right: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 500px;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+        .mdl-switch {
+            width: auto;
+        }
+        .mdl-switch__thumb {
+            background-color: #a7a7a7;
+        }
+        .mdl-switch.is-checked .mdl-switch__thumb{
+            background-color: #ffffff;
+        }
+        .mdl-switch.is-checked .mdl-switch__track {
+            background: rgba(10, 10, 10, 0.5);
+        }
+        .mdl-switch__ripple-container .mdl-ripple {
+            background-color: #fff;
+        }
+        .build {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            bottom: 0;
+            right: 35px;
+            background-color: #222222;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .build i{
+            vertical-align: middle;
+        }
+        .mdl-button--raised, .mdl-button--fab{
+            background-color: rgb(195, 195, 195);
+        }
+        .mdl-button:hover {
+            background-color: #fff;
+        }
+        .mdl-textfield__label:after {
+            background-color: #fff;
+        }
+
+    </style>
+{% endblock %}
 {% block body %}
+    <div class="mainWrapper">
     <div class="main">
         <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
         <div class="contentWrapper">
@@ -25,20 +213,30 @@
                 <!--<div id="currentTimeDiv"></div>-->
             </div>
             <div class="subContent">
-                <div class="inputText">
-                    <textarea id="tempText" disabled placeholder="Введите текст субтитров и нажмите  Enter, для переноса строки нажмите Shift+Enter"></textarea>
-                    <input type="button" value="+" id="addBtn">
-                </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <textarea id="tempText" class="mdl-textfield__input" type="text" rows= "5" ></textarea>
+                        <label class="mdl-textfield__label" for="sample5" style="color: #4f4f4f;">Введите текст субтитров</label>
+                            <button id="addBtn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                                <i class="material-icons">add</i>
+                            </button>
+                    </div>
                 <div class="outputSub">
                     <div class="onceOutputSub">
-
-                        <textarea></textarea><input type="button" value="-">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <textarea class="mdl-textfield__input" type="text" rows= "4" ></textarea>
+                            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                                <i class="material-icons">remove</i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <input type="button" value="Готово" id="btn">
+        <button id="btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Готово
+        </button>
         <!--<input type="button" value="Send Subtitles" id="btnAjax">-->
+    </div>
     </div>
     <div class="loaderWrapper">
         <div class="loader" id="loader-4">
@@ -52,14 +250,19 @@
     </audio>
     <div id="progress_mp3"></div>
     <div id="progress_ogg"></div>
-    <div class="bt_wrapper">
-        <div class="tr_button">
-            <input type="button" value="ORIGINAL" id="original_bt" disabled >
+    <div class="bt_wrapper" style="bottom: -40px">
+        <div class="note mute" id="note">
+            <i class="material-icons">audiotrack</i>
         </div>
-        <div class="tr_button">
-            <input type="button" value="TRANSLATE" id="translate_bt" >
+        <div class="audName">
+            <span>{{ audioTitle }}</span>
         </div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                <span class="mdl-switch__label"></span>
+            </label>
     </div>
+    <div class="build" id="build" onclick="toggleToolsBar()"><i class="material-icons">build</i></div>
     <script>
         var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
         var checkAjax = false;
@@ -71,6 +274,7 @@
         function addToSQL() {
             loaderWrapper.style.display = 'table';
             this.disabled = true;
+            player.mute();
             makeAjax();
         }
         function actWhenLoad() {
@@ -101,7 +305,9 @@
                 if (data.status == 200) {
                     var data = new FormData();
                     data.append('idvid',"{{ id }}");
-                data.append('audurl', audUrl);
+                    data.append('audurl', audUrl);
+                    data.append('title', "{{ title }}");
+                    data.append('descript', "{{ descript }}");
                 var request = new XMLHttpRequest();
                 /* var xmlupload = request.upload;*/
                 request.addEventListener('load', actWhenLoad);
@@ -129,6 +335,7 @@
             function addToSQL() {
                 loaderWrapper.style.display = 'table';
                 this.disabled = true;
+                player.mute();
                 makeAjax();
 
 
@@ -165,6 +372,8 @@
                         var data = new FormData();
                         data.append('idvid', "{{ id }}");
                         data.append('audurl', audUrl);
+                        data.append('title', "{{ title }}");
+                        data.append('descript', "{{ descript }}");
                         var request = new XMLHttpRequest();
                         /* var xmlupload = request.upload;*/
                         request.addEventListener('load', actWhenLoad);
@@ -183,92 +392,7 @@
 
 {% endblock %}
 
-{% block stylesheets %}
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    header .container .addNewContent {
-        display: none!important;
-    }
-    .main {
-        border: 2px solid #ca2626;
-        background: #0f0f0f;
-        text-align: center;
-    }
-    #btn {
-        width: 100px;
-        height: 50px;
-        margin: 25px 0 10px 0;
-        font: bold 14px sans-serif ;
-    }
-    div.popup {
-        position: absolute;
-        top: 150px;
-        width: 80%;
-        background: #000000;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        padding: 10px 0;
-        border: 3px solid #0a0a0a;
-        border-radius: 10px;
-        text-align: center;
-        font-family: sans-serif;
-        color: #fff;
-        font-size: 32px ;
-    }
-    div.popup a {
-        display: inline-block;
-        text-decoration: none;
-        text-align: center;
-        color: rgba(219, 219, 219, 0.68);
 
-    }
-    div.popup .playBtn {
-        display: inline-block;
-        height: 50px;
-        width: 50px;
-        background: url("img/playBtn.png") no-repeat;
-        background-size: cover;
-    }
-    .bt_wrapper {
-        display: none;
-        text-align: center;
-    }
-    .tr_button {
-        display: inline-block;
-    }
-    audio {
-        display: none;
-    }
-    progress {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        border-radius: 2px;
-    }
-    progress[value] {
-        /* Reset the default appearance */
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 2px;
-    }
-    progress[value]::-webkit-progress-bar {
-        background-color: #eee;
-        border-radius: 2px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-    }
-    progress[value]::-webkit-progress-value {
-        background: red;
-    }
-    #original_bt {
-        display: none;
-    }
-</style>
-{% endblock %}
 {% block script %}
 <script>
 </script>

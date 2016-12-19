@@ -1,6 +1,187 @@
-{% extends 'base2.html.twig' %}
+{% extends 'base3.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            max-width: 1204px;
+            position: relative;
+            top: 100px;
+            border: 2px solid #ca2626;
+            background: #0f0f0f;
+            text-align: center;
+            -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 1);
+            -moz-box-shadow:    2px 2px 10px 0px rgba(0, 0, 0, 1);
+            box-shadow:         2px 2px 10px 0px rgba(0, 0, 0, 1);
+        }
+        .mainWrapper {
+            padding: 0 15px;
+        }
+        #btn {
+            width: 100px;
+            height: 50px;
+            margin: 25px 0 10px 0;
+            font: bold 14px sans-serif ;
+        }
+        .bt_wrapper {
+            display: none;
+            height: 40px;
+            background-color: #373737;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: left;
+            transition: bottom .2s linear;
+        }
+        .bt_wrapper> *{
+            display: inline-block;
+        }
+
+        .contentWrapper {
+            position: relative;
+            top: 100px;
+            text-align: center;
+        }
+        {% if audio == 'true' %}
+        .contentWrapper {
+            padding-bottom: 40px;
+        }
+        {% endif %}
+        .contentWrapper .videoContent {
+            float: none;
+            width: auto;
+        }
+        .tr_button {
+            display: inline-block;
+        }
+        .playerWrapper iframe {
+            -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 1);
+            -moz-box-shadow:    2px 2px 10px 0px rgba(0, 0, 0, 1);
+            box-shadow:         2px 2px 10px 0px rgba(0, 0, 0, 1);
+        }
+        audio {
+            display: none;
+        }
+        progress {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            border-radius: 2px;
+        }
+        progress[value] {
+            /* Reset the default appearance */
+            -webkit-appearance: none;
+            appearance: none;
+
+            width: 100%;
+            height: 2px;
+        }
+        progress[value]::-webkit-progress-bar {
+            background-color: #eee;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+        }
+        progress[value]::-webkit-progress-value {
+            background: red;
+        }
+        #original_bt {
+            display: none;
+        }
 
 
+        /*========================
+                 MATIRIA
+      =========================*/
+        .mdl-layout {
+            padding-bottom: 40px;
+        }
+        .mdl-layout__drawer {
+            z-index: 101;
+        }
+        .mdl-layout__container {
+            top:0;
+        }
+        .mdl-textfield__input {
+            color: white;
+            padding-left: 10px;
+            padding-right: 87px;
+            box-sizing: border-box;
+        }
+        .mdl-textfield__label {
+            padding: 0 0 0 10px;
+            box-sizing: border-box;
+        }
+        .onceOutputSub .mdl-button {
+            right: 27px;
+            top:0;
+        }
+
+        .note.mute {
+            background-color: rgba(255, 0, 0, 0.55);
+        }
+        .note {
+            background-color: #4f805d;
+            line-height: 40px;
+            padding: 0 10px;
+            margin-right: 17px;
+            transition: all .2s linear;
+        }
+        .note i {
+            vertical-align: middle;
+        }
+        .audName {
+            color: white;
+            margin-right: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 500px;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+        .mdl-switch {
+            width: auto;
+        }
+        .mdl-switch__thumb {
+            background-color: #a7a7a7;
+        }
+        .mdl-switch.is-checked .mdl-switch__thumb{
+            background-color: #ffffff;
+        }
+        .mdl-switch.is-checked .mdl-switch__track {
+            background: rgba(10, 10, 10, 0.5);
+        }
+        .mdl-switch__ripple-container .mdl-ripple {
+            background-color: #fff;
+        }
+        .build {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            bottom: 0;
+            right: 35px;
+            background-color: #222222;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .build i{
+            vertical-align: middle;
+        }
+        .mdl-button--raised, .mdl-button--fab{
+            background-color: rgb(195, 195, 195);
+        }
+        .mdl-button:hover {
+            background-color: #fff;
+        }
+        .mdl-textfield__label:after {
+            background-color: #fff;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
     <div class="contentWrapper">
@@ -12,20 +193,23 @@
                 </div>
             </div>
         </div>
+        <div>{{ res[4] }}</div>
     </div>
 
     <div id="progress" style="color: white;"></div>
 {% if audio == 'true' %}
-    <audio controls id="audio" preload="metadata"></audio>
+    <audio controls id="audio" preload="metadata">
+    </audio>
     <div id="progress_mp3"></div>
     <div id="progress_ogg"></div>
     <div class="bt_wrapper">
-        <div class="tr_button">
-            <input type="button" value="ORIGINAL" id="original_bt" disabled >
+        <div class="note mute" id="note">
+            <i class="material-icons">audiotrack</i>
         </div>
-        <div class="tr_button">
-            <input type="button" value="TRANSLATE" id="translate_bt" >
-        </div>
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+            <input type="checkbox" id="switch-2" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+        </label>
     </div>
 {% endif %}
 
@@ -33,54 +217,7 @@
 
 {% endblock %}
 
-{% block stylesheets %}
-<style>
 
-
-    .contentWrapper {
-        text-align: center;
-    }
-    .contentWrapper .videoContent {
-        float: none;
-        width: auto;
-    }
-    .bt_wrapper {
-        display: block;
-        text-align: center;
-    }
-    .tr_button {
-        display: inline-block;
-    }
-    audio {
-        display: none;
-    }
-    progress {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        border-radius: 2px;
-    }
-    progress[value] {
-        /* Reset the default appearance */
-        -webkit-appearance: none;
-        appearance: none;
-
-        width: 100%;
-        height: 2px;
-    }
-    progress[value]::-webkit-progress-bar {
-        background-color: #eee;
-        border-radius: 2px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-    }
-    progress[value]::-webkit-progress-value {
-        background: red;
-    }
-    #original_bt {
-        display: none;
-    }
-</style>
-{% endblock %}
 {% block scripts %}
 <script>
     var controller_json = '{{ json }}';

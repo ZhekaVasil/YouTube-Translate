@@ -1,139 +1,144 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div class="main">
-    {% for var in res %}
-        <div class="itemWrapper">
-            <div class="item">
-                <a href="{{ file_watch_php }}?idvid={{var['idvid']}}&audurl={{var['audurl']}}">
-
-                <img width="600px" src="{{ var['thumbnail'] }}">
-                </a>
-
-            </div>
-        </div>
-    {% endfor %}
-    </div>
-    <div id="moreBtn">
-        <svg width="50px" height="50px" fill="#fff" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-        <g><path d="M500,713.3L10,390.4l68.5-103.8L500,564.5l421.5-277.9L990,390.4L500,713.3z"/></g>
-</svg>
-    </div>
-
-{% endblock %}
 
 {% block stylesheets %}
-<style>
-    html {
-        /* background-color: black;*/
-        padding: 0 0 40px 0;
-    }
+    <style>
 
-    .container .home {
-        display: none!important;
-    }
+        main {
+            text-align: center;
+        }
+        #moreBtn {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            cursor: pointer;
+            height: 50px;
+        }
 
+        /*=========================
+                     FORM
+        =========================*/
 
-    body {
-        position: relative;
-        text-align: center;
-    }
-    #moreBtn {
-        position: absolute;
-        bottom: -75px;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        cursor: pointer;
-    }
-    #moreBtn:hover svg {
-        fill: rgba(255,255,255,.8) ;
-    }
-
-
-    .formWrapper {
-        opacity: 0;
-        background: rgba(0,0,0,.9);
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        -webkit-transition: all .3s linear;
-        -moz-transition: all .3s linear;
-        -ms-transition: all .3s linear;
-        -o-transition: all .3s linear;
-        transition: all .3s linear;
-    }
-    .show {
-        opacity: 1;
-    }
-    .formWrapper .formContainer {
-        position: absolute;
-        top: 150px;
-        width: 80%;
-        height: 310px;
-        background:#000000;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        border: 3px solid #0a0a0a;
-        border-radius: 10px;
-        font-family: sans-serif;
-        color: #fff;
-    }
-    .formWrapper .formContainer h3 {
-        font-size: 32px;
-    }
-    .formWrapper .formContainer label {
-        font-size: 24px;
-    }
-    .formWrapper .formContainer input[type='text']{
-        width: 70%;
-        height: 40px;
-        padding: 0 0 0 15px;
-    }
-    .formWrapper .formContainer input[type='submit'], .formWrapper .formContainer input[type='button'], #moreBtn{
-        margin-top: 50px;
-        width: 100px;
-        height: 50px;
-
-        font: bold 14px sans-serif ;
-    }
-
-    .main .itemWrapper {
-        margin: 0 0 30px;
-    }
-    .main .itemWrapper .item{
-        display: inline-block;
-        overflow: hidden;
-        border: 2px solid #fff;
-
-    }
-    .main .itemWrapper .item img {
-        margin-bottom: -4px;
-        -webkit-transition: all .4s ease-in-out;
-        -moz-transition: all .4s ease-in-out;
-        -ms-transition: all .4s ease-in-out;
-        -o-transition: all .4s ease-in-out;
-        transition: all .4s ease-in-out;
-    }
-    .main .itemWrapper .item:hover {
-        background: #000;
-    }
-    .main .itemWrapper .item:hover img {
-        transform: scale(1.05);
-    }
+        form {
+            padding: 20px;
+            color: white;
+        }
+        form .mdl-textfield {
+            width: 100%;
+        }
+        .mdl-textfield__label:after {
+            background-color: white;
+        }
 
 
-</style>
+
+
+        .mdl-snackbar__action {
+            opacity: 1;
+        }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 1000px #131313 inset;
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: white;
+        }
+
+        #formWrapper {
+           visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:0;
+            z-index: 10;
+            background-color: rgba(0,0,0,.5);
+            -webkit-transition: visibility .2s linear;
+            -moz-transition: visibility .2s linear;
+            -o-transition: visibility .2s linear;
+            transition: visibility .2s linear;
+
+        }
+        #formWrapper  .mdl-cell {
+            position: absolute;
+            top: -450px;
+            padding-right: 26px;
+            -webkit-transition: top .2s cubic-bezier(.4,0,.2,1);
+            -moz-transition: top .2s cubic-bezier(.4,0,.2,1);
+            -o-transition: top .2s cubic-bezier(.4,0,.2,1);
+            transition: top .2s cubic-bezier(.4,0,.2,1);
+        }
+        #formWrapper.show {
+           visibility: visible;
+
+        }
+        #formWrapper.show .mdl-cell {
+            top:150px;
+        }
+        #formWrapper label[for=audio] {
+            color: white;
+            bottom: -41px;
+        }
+        .buttonWrapper {
+            text-align: right;
+        }
+        .buttonWrapper button.mdl-button--accent.mdl-button--accent {
+            color: white;
+            background-color: #0c0c0c;
+        }
+
+
+    </style>
 {% endblock %}
+
+{% block body %}
+    {% set myVal = 0 %}
+        <div class="mdl-grid">
+    {% for var in res %}
+            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <a href="{{ file_watch_php }}?idvid={{ var['idvid'] }}&audurl={{ var['audurl'] }}">
+                            <img src="{{ var['thumbnail'] }}"/>
+                        </a>
+                    </div>
+                    <div class="mdl-card__supporting-text" title="{{ var['title'] }}">
+                        <h2 class="mdl-card__title-text">{{ var['title'] }}</h2>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+        </div>
+
+
+
+
+
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <div id="moreBtn">
+                <i class="material-icons" style="font-size: 48px; color: white">expand_more</i>
+                <div id="spinner" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" style="display: none"></div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
 {% block scripts %}
     <script>
     //custom start
 
-            var addForm = document.getElementById('moreBtn');
+        /*    var addForm = document.getElementById('moreBtn');
             addForm.addEventListener('click', morePage);
             function morePage(){
                 var request = new XMLHttpRequest();
@@ -154,45 +159,91 @@
                     }
                 }
             }
-
+*/
 
 
 
 
         var moreBtn = document.getElementById('moreBtn');
         moreBtn.addEventListener("click", showMoreContent);
-        var pageIndex = 10;
+        var pageIndex = 12;
         function showMoreContent(){
-            this.setAttribute('disabled','');
+            document.getElementById('spinner').style.display = 'inline-block';
+            document.querySelector('#moreBtn i').style.display = 'none';
             var data = new FormData();
             data.append('pageIndex',pageIndex );
             var request = new XMLHttpRequest();
+            request.responseType = 'json';
             request.addEventListener('load', addMoreContent);
             request.open("POST","loadingByPices.php", true);
             request.send(data);
 
 
 
-            pageIndex+=10;
+            pageIndex+=12;
         }
         function addMoreContent(e){
             var data = e.target;
             if (data.status == 200) {
-                var picewrapper = document.createElement('div');
-                picewrapper.setAttribute('class', 'main');
-                picewrapper.innerHTML = data.responseText;
-                document.body.appendChild(picewrapper);
-                moreBtn.removeAttribute('disabled');
+                document.querySelector('#moreBtn i').style.display = 'inline';
+                document.getElementById('spinner').style.display = 'none';
+                if(data.response.length < 12) {moreBtn.remove();}
+                var main = document.querySelector('main .mdl-grid');
+                data.response.forEach(function (item) {
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet');
+                    div.innerHTML = item;
+                    main.appendChild(div);
+                });
+
             }
         }
 
-        function closeModal() {
+      /*  function closeModal() {
             var cancelBtn = document.getElementById('cancel');
             cancelBtn.addEventListener('click',close);
             function close() {
                 var modal = document.getElementsByClassName('formWrapper')[0];
                 document.body.removeChild(modal);
             }
+        }*/
+    </script>
+    <script>
+        var audio = document.getElementById('audio');
+        var snackbarContainer = document.querySelector('#demo-toast-example');
+        audio.onchange = function () {
+            var data = {message: 'Выбран файл: ' + audio.value};
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        };
+        var form = document.forms.addform;
+        var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
+
+        form.onsubmit = function () {
+            loaderWrapper.style.display = 'table';
+        };
+        function sendToSubeditor() {
+            if(form.checkValidity()) {form.submit();}
+        }
+        
+        
+        
+        var nav_addBtn = document.getElementById('nav_addBtn');
+        var drawer_addBtn = document.getElementById('drawer_addBtn');
+        var formWrapper = document.getElementById('formWrapper');
+        var cancelBtn = document.getElementById('cancelForm');
+        nav_addBtn.onclick = showForm;
+        drawer_addBtn.onclick = showForm;
+        cancelBtn.onclick = hideForm;
+        function showForm(e) {
+            e.preventDefault();
+            formWrapper.classList.add('show');
+            form.removeAttribute('novalidate');
+        }
+        function hideForm(e) {
+            e.preventDefault();
+            formWrapper.classList.remove('show');
+            form.setAttribute('novalidate', '');
+
         }
     </script>
 {% endblock %}

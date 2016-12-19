@@ -15,6 +15,9 @@ class SubeditorController extends Controller
     {
         $id = '';
         $audio = NULL;
+        $title = '';
+        $descript = '';
+        $audioTitle = '123';
         // проверяем есть ли POST запрос от формы
         if($request->request->get('idvid')) {
             //в переменную $id записываем id видюшки
@@ -31,7 +34,11 @@ class SubeditorController extends Controller
                 };
                 //перемещаем аудио в свою папку, и именуем ее как 'audio.mp3'
                 move_uploaded_file($request->files->get('audio'), "preview/".$id."/audio.mp3");
+                $audioTitle = $request->files->get('audio')->getClientOriginalName();
             }
+            $title = $request->request->get('title');
+            $descript = $request->request->get('descript');
+
         }
 
 
@@ -39,6 +46,9 @@ class SubeditorController extends Controller
         return $this->render('default/subeditor.html.twig',[
             'id' => $id,
             'audio' => $audio,
+            'title' => $title,
+            'descript' => $descript,
+            'audioTitle' => $audioTitle,
         ]);
     }
 }

@@ -15,8 +15,10 @@ if(isset($_POST['idvid'])){
         /*echo '<img src="'.$json->items[0]->snippet->thumbnails->maxres->url.'">';*/
         $thumbnail = $json->items[0]->snippet->thumbnails->maxres->url;
     }
-    $stm = $mysqli->prepare("INSERT INTO `project`.`vid` (`#`, `idvid`, `thumbnail`, audurl) VALUES (NULL, ?, ?,?);");
-    $stm->bind_param('sss',$_POST['idvid'],$thumbnail,$_POST['audurl'] );
+    $title = $_POST['title'];
+    $descript = $_POST['descript'];
+    $stm = $mysqli->prepare("INSERT INTO `project`.`vid` (`#`, `idvid`, `thumbnail`, `audurl`, `title`, `descript`) VALUES (NULL, ?, ?,?,?,?);");
+    $stm->bind_param('sssss',$_POST['idvid'], $thumbnail, $_POST['audurl'], $title, $descript );
     $stm->data_seek(0);
     $stm->execute();
     $stm->close();

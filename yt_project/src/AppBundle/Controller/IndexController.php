@@ -22,16 +22,34 @@ class IndexController extends Controller
         if ($request->request->get('pageIndex')){
             $pageIndex = $request->request->get('pageIndex');
 
-            $res = $conn->query("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT $pageIndex, 10");
+            $res = $conn->query("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT $pageIndex, 12");
             $res->data_seek(0);
+            $arr = '';
+            $str = '';
             while($row =$res->fetch_assoc() ){
-                echo '<div class="itemWrapper"><div class="item"><a href="watch.php?idvid='.$row['idvid'].'&audurl='.$row['audurl'].'" target="_self" ><img width="600px" src="'.$row['thumbnail'].'"></a></div></div>';
+
+                if ($str != "") {$str .= ",";}
+                $str = "<div class='mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet'>".
+                "<div class='demo-card-wide mdl-card mdl-shadow--2dp'>".
+                    "<div class='mdl-card__title'>".
+                        "<a href='?idvid=".$row['idvid']."&audurl=".$row['audurl']."'>".
+                            "<img src='".$row['thumbnail']."'/>".
+                        "</a>".
+                    "</div>".
+                    "<div class='mdl-card__supporting-text' title='".$row['descript']."'>".
+                        "<h2 class='mdl-card__title-text'>".$row['descript']."</h2>".
+                    "</div>".
+                "</div>".
+            "</div>";
+                $arr .= '"'.$str.'"';
             };
+            $json = '['.$arr.']';
+            echo $json;
             exit();
         }
 
 
-        $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,10");//main conn
+        $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,12");//main conn
        /* $resmore = $conn->fetchall("SELECT * FROM `vid` LIMIT 10,10");//test conn*/
         $watch = "http://127.0.0.1:8000/watch";
         $add_new_content = "http://127.0.0.1:8000/insert";
