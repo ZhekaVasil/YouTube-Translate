@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{  asset('css/material.min.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="{{  asset('scripts/material.min.js') }}"></script>
+    <style>
+        #formWrapper {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title"><a href="/"><img src="{{  asset('img/yr_logo.png') }}" alt="YouTube translate"/></a></span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="#"><i class="material-icons" id="nav_addBtn">add_circle</i></a>
+                <a class="mdl-navigation__link" href="{{ path('\index') }}"  id="nav_inbtn" >Выход</a>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title"><a href="/"><img src="{{  asset('img/yr_logo.png') }}" alt="YouTube translate"/></a></span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="#"><i class="material-icons">account_circle</i>Мой канал</a>
+            <a class="mdl-navigation__link" href="#"><i class="material-icons">whatshot</i>В тренде</a>
+            <a class="mdl-navigation__link" href="#"><i class="material-icons">star_border</i>Выбор редакции</a>
+            <a class="mdl-navigation__link" href="#" id="drawer_addBtn"><i class="material-icons">add_circle</i>Добавить перевод</a>
+            <hr class="style1">
+            <a class="mdl-navigation__link" href="#"><i class="material-icons">face</i>О нас</a>
+            <hr class="style1">
+            <a class="mdl-navigation__link" href="{{ path('\index') }}"><i class="material-icons">perm_contact_calendar</i>Выход</a>
+
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+
+        <div class="mdl-grid">
+            {% for var in res %}
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <a href="{{ file_watch_php }}?idvid={{ var['idvid'] }}&audurl={{ var['audurl'] }}">
+                                <img src="{{ var['thumbnail'] }}"/>
+                            </a>
+                        </div>
+                        <div class="mdl-card__supporting-text" title="{{ var['title'] }}">
+                            <h2 class="mdl-card__title-text">{{ var['title'] }}</h2>
+                            <h3 class="mdl-card__title-text">
+                                <form action="" method="post">
+                                    <label for="delete" style="color: #FFF;">Удалить</label>
+                                    <input type="submit" name="delete" value="{{ var['#'] }}">
+                                    <label for="Publick" style="color: #FFF;">Опубликовать</label>
+                                    <input type="submit" name="public" value="{{ var['#'] }}">
+                                </form>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+
+<div class="mdl-grid" id="formWrapper">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--4-col-desktop">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <form name="addform" enctype="multipart/form-data" method="post" action="/subeditor" novalidate>
+                <fieldset>
+                    <legend>Добавить видео</legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="title" id="title" required/>
+                        <label class="mdl-textfield__label" for="title" style="color: #4f4f4f">Название</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="idvid" id="idvid" required pattern=".*v=.*"/>
+                        <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Ссылка</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" name="descript" id="descript" rows="5"
+                              required></textarea>
+                        <label class="mdl-textfield__label" for="descript" style="color: #4f4f4f">Описание</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="file" name="audio" id="audio" style="display: none"/>
+                        <label class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                               for="audio">
+                            аудио перевод
+                        </label>
+                    </div>
+                    <div class="buttonWrapper">
+                        <button id="ok"
+                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                onclick="sendToSubeditor()">
+                            Ok
+                        </button>
+                        <button id="cancelForm" class="mdl-button mdl-js-button mdl-button--accent">
+                            Отмена
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar" style="z-index: 11">
+    <div class="mdl-snackbar__text"></div>
+    <div class="mdl-snackbar__action"><i class="material-icons" style="color: white;">check</i></div>
+</div>
+
+
+{% block scripts %}{% endblock %}
+</body>
+</html>
+

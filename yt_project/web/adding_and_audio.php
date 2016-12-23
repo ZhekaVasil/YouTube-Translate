@@ -24,7 +24,8 @@ if(isset($_POST['idvid'])){
 
 
 
-    $stm = $mysqli->prepare("INSERT INTO `project`.`vid` (`#`, `idvid`, `thumbnail`, `audurl`, `title`, `descript`) VALUES (NULL, ?, ?,?,?,?);");
+    $stm = $mysqli->prepare("INSERT INTO `project`.`moderate` (`#`, `idvid`, `thumbnail`, `audurl`, `title`, `descript`) VALUES (NULL, ?, ?,?,?,?);");
+    //$stm = $mysqli->prepare("INSERT INTO `project`.`vid` (`#`, `idvid`, `thumbnail`, `audurl`, `title`, `descript`) VALUES (NULL, ?, ?,?,?,?);");
     $stm->bind_param('sssss',$_POST['idvid'], $thumbnail, $_POST['audurl'], $title, $descript );
     $stm->data_seek(0);
     $stm->execute();

@@ -55,7 +55,23 @@ class IndexController extends Controller
         $add_new_content = "http://127.0.0.1:8000/insert";
 
 
+                /*
+                 *
+                 * */
 
+       if ($request->request->get('inBtnSubmit')){
+           $login = $request->request->get('login');
+           $pass = $request->request->get('pass');
+           if ($login == 'login' and ($pass) == 'pass'){
+             $this->render('default/administator.html.twig');
+               /*session_start();
+               session_id(['admin']);*/
+           }
+           else{
+               $this->render('default/index.html.twig');
+           }
+
+       }
 
 
 

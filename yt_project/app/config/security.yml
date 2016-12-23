@@ -1,7 +1,7 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+#http://yapro.ru/web-master/php/symfony2-avtorizaciya-bez-doctrine2.html
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
