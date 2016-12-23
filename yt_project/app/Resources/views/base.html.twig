@@ -11,9 +11,21 @@
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="{{  asset('scripts/material.min.js') }}"></script>
-
+        <script>
+            window.addEventListener('load', function () {
+                var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
+                loaderWrapper.style.display = 'none';
+            });
+        </script>
     </head>
     <body>
+    <div class="loaderWrapper">
+        <div class="loader" id="loader-4">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">

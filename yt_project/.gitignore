@@ -15,3 +15,8 @@
 /vendor/
 /web/bundles/
 /test git/
+.idea/
+.idea/
+workspace.xml
+YouTube-Translate.iml
+temp/

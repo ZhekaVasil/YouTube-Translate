@@ -19,6 +19,18 @@
         }
     };
 
+    var toggle2 = document.getElementById('switch-3');
+    var translate = document.getElementById('translate');
+    var infoWrapper = document.getElementsByClassName('infoWrapper')[0];
+    toggle2.onchange = function () {
+        if(this.checked){
+            translate.classList.remove('mute');
+            infoWrapper.style.display = 'block';
+        } else {
+            translate.classList.add('mute');
+            infoWrapper.style.display = 'none';
+        }
+    };
 
     var video_id = $_POST;
     /*var ampersandPosition = video_id.indexOf('&');
@@ -53,7 +65,6 @@
 
 // 4. The API will call this function when the video player is ready.
     function onPlayerReady(event) {
-
         /* drawSubs(subtitles);*/
     }
 
@@ -548,9 +559,15 @@
     }
 
 
-    info.addEventListener('resize', function () {
-        alert('asdasf')
-    });
+
+    function toggleToolsBar() {
+        var bt_wrapper = document.getElementsByClassName('bt_wrapper')[0];
+        if(bt_wrapper.style.bottom == '-40px'){
+            bt_wrapper.style.bottom = '0';
+        } else {
+            bt_wrapper.style.bottom = '-40px';
+        }
+    };
     /* function  makeAjax() {
      var url = 'subtitles.json';
      var request = new XMLHttpRequest();

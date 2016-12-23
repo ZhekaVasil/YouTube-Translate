@@ -36,6 +36,19 @@ function read() {
         }
 
     };
+
+    var toggle2 = document.getElementById('switch-3');
+    var translate = document.getElementById('translate');
+    var infoWrapper = document.getElementsByClassName('infoWrapper')[0];
+    toggle2.onchange = function () {
+        if(this.checked){
+            translate.classList.remove('mute');
+            infoWrapper.style.display = 'block';
+        } else {
+            translate.classList.add('mute');
+            infoWrapper.style.display = 'none';
+        }
+    };
     /*original_bt.onclick = function () {
         audio.volume = 0;
         player.unMute();

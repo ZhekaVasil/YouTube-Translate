@@ -68,12 +68,14 @@ function showAud_mp3(e) {
     var data = e.target;
     if (data.status == 200) {
         var audioSRC = URL.createObjectURL(data.response);
+        var progressbar = progress_mp3.querySelector("progress");
         var mp3 = document.createElement('source');
         mp3.setAttribute('type', 'audio/mpeg');
         mp3.setAttribute('src', audioSRC);
         mp3.setAttribute('id', 'mp3');
         audio.appendChild(mp3);
         audio.volume = 0;
+        progressbar.style.display = 'none';
         /* progress.innerHTML = '<audio src="' + audio + '" controls id="audio"></audio>' ;*/
     } else {
         progress_mp3.innerHTML = data.status;
@@ -283,5 +285,17 @@ toggle.onchange = function () {
         audio.volume = 0;
         player.unMute();
     }
+};
 
+var toggle2 = document.getElementById('switch-3');
+var translate = document.getElementById('translate');
+var infoWrapper = document.getElementsByClassName('infoWrapper')[0];
+toggle2.onchange = function () {
+    if(this.checked){
+        translate.classList.remove('mute');
+        infoWrapper.style.display = 'block';
+    } else {
+        translate.classList.add('mute');
+        infoWrapper.style.display = 'none';
+    }
 };

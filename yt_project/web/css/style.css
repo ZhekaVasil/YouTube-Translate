@@ -108,9 +108,6 @@ hr.style1{
 }
 
 
-.contentWrapper {
-    overflow: hidden;
-}
 .contentWrapper .videoContent {
     float: left;
     width: 853px;
@@ -287,6 +284,14 @@ hr.style1{
     /* width: 100%;
      height: 100%;*/
 }
+/*=====================
+        TOOLTIP
+======================*/
+#note {
+    margin-right: 25px;
+}
+
+
 
 
 ::-webkit-scrollbar {
@@ -313,7 +318,7 @@ hr.style1{
 /*LOADER*/
 
 .loaderWrapper {
-    display: none;
+    display: table;
     position: fixed;
     left: 0;
     right: 0;

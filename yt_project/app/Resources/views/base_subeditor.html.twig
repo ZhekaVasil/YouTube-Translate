@@ -12,6 +12,12 @@
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="{{  asset('scripts/material.min.js') }}"></script>
+    <script>
+        window.addEventListener('load', function () {
+            var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
+            loaderWrapper.style.display = 'none';
+        });
+    </script>
 
 </head>
 <body>
@@ -19,12 +25,12 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title"><a href="/index"><img src="{{  asset('img/yr_logo.png') }}" alt="YouTube translate"/></a></span>
+            <span class="mdl-layout-title"><a href="/"><img src="{{  asset('img/yr_logo.png') }}" alt="YouTube translate"/></a></span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <a class="mdl-navigation__link" href="/index"><i class="material-icons">arrow_back</i></a>
+                <a class="mdl-navigation__link" href="/"><i class="material-icons">arrow_back</i></a>
                 <a class="mdl-navigation__link" href="/administrator">Вход</a>
             </nav>
         </div>

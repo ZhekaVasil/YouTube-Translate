@@ -27,7 +27,6 @@
             font: bold 14px sans-serif ;
         }
         .bt_wrapper {
-            display: none;
             height: 40px;
             background-color: #373737;
             position: fixed;
@@ -42,15 +41,12 @@
         }
 
         .contentWrapper {
+            padding-bottom: 40px;
             position: relative;
             top: 100px;
             text-align: center;
         }
-        {% if audio == 'true' %}
-        .contentWrapper {
-            padding-bottom: 40px;
-        }
-        {% endif %}
+
         .contentWrapper .videoContent {
             float: none;
             width: auto;
@@ -58,7 +54,11 @@
         .tr_button {
             display: inline-block;
         }
-        .playerWrapper iframe {
+        .playerWrapper {
+            width: 1280px;
+            margin: 0 auto;
+        }
+        .playerWrapper, #disqus_thread, .details {
             -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 1);
             -moz-box-shadow:    2px 2px 10px 0px rgba(0, 0, 0, 1);
             box-shadow:         2px 2px 10px 0px rgba(0, 0, 0, 1);
@@ -68,6 +68,7 @@
         }
         progress {
             position: fixed;
+            z-index: 3;
             top: 0;
             width: 100%;
             border-radius: 2px;
@@ -180,6 +181,38 @@
         .mdl-textfield__label:after {
             background-color: #fff;
         }
+
+
+        /*========================
+               DETAILS
+    =========================*/
+        .details {
+            max-width: 1280px;
+            margin: 20px auto 0 auto;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: left;
+            background-color: #131313;
+            color: #9c9c9c;
+        }
+        .details .title {
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+        .details .description {
+            font-size: 20px;
+            line-height: 1.3em;
+        }
+        /*========================
+             C O M M E N T S
+   =========================*/
+        #disqus_thread {
+            max-width: 1280px;
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 20px auto 0 auto;
+        }
     </style>
 {% endblock %}
 
@@ -192,10 +225,14 @@
                     <div id="info"></div>
                 </div>
             </div>
+            <div class="details">
+                <div class="title">{{ res['title'] }}</div>
+                <div class="description">{{ res['descript'] }}</div>
+            </div>
+            <div class="commentsWrapper">
+                <div id="disqus_thread"></div>
+            </div>
         </div>
-        <div> {{ res['title'] }}</div>
-        <div>{{ res['descript'] }}</div>
-
     </div>
 
     <div id="progress" style="color: white;"></div>
@@ -204,23 +241,62 @@
     </audio>
     <div id="progress_mp3"></div>
     <div id="progress_ogg"></div>
-    <div class="bt_wrapper">
-        <div class="note mute" id="note">
+    <div class="bt_wrapper" style="bottom: -40px">
+        <div class="note mute" id="note" style="margin-right: 10px">
             <i class="material-icons">audiotrack</i>
         </div>
-        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2" style="margin-right: 25px">
             <input type="checkbox" id="switch-2" class="mdl-switch__input">
             <span class="mdl-switch__label"></span>
         </label>
+        <div class="note" id="translate">
+            <i class="material-icons">g_translate</i>
+        </div>
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
+            <input type="checkbox" id="switch-3" class="mdl-switch__input" checked>
+            <span class="mdl-switch__label"></span>
+        </label>
     </div>
+    <div class="build" id="build" onclick="toggleToolsBar()"><i class="material-icons">build</i></div>
 {% endif %}
+    {% if audio != 'true' %}
+        <div class="bt_wrapper" style="bottom: -40px">
+            <div class="note" id="translate">
+                <i class="material-icons">g_translate</i>
+            </div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
+                <input type="checkbox" id="switch-3" class="mdl-switch__input" checked>
+                <span class="mdl-switch__label"></span>
+            </label>
+        </div>
+        <div class="build" id="build" onclick="toggleToolsBar()"><i class="material-icons">build</i></div>
+    {% endif %}
 
 
-
+    <script src="https://apis.google.com/js/plusone.js"></script>
 {% endblock %}
 
 
 {% block scripts %}
+    <script>
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = '//zhekavasil-by.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <script>
+        function toggleToolsBar() {
+            var bt_wrapper = document.getElementsByClassName('bt_wrapper')[0];
+            if(bt_wrapper.style.bottom == '-40px'){
+                bt_wrapper.style.bottom = '0';
+            } else {
+                bt_wrapper.style.bottom = '-40px';
+            }
+        };
+    </script>
 <script>
     var controller_json = '{{ json }}';
     controller_json = controller_json.replace(/&quot;/g, '"');
