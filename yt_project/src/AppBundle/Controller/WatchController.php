@@ -19,7 +19,7 @@ class WatchController extends Controller
         $json = json_encode($array);
         $audio = $array['audurl'];
         $idvid = $array['idvid'];
-        $res = $conn->fetchArray("SELECT * FROM `vid` WHERE idvid LIKE '".$idvid."'");
+        $res = $conn->fetchAssoc("SELECT * FROM `vid` WHERE idvid LIKE '".$idvid."'");
 
         // replace this example code with whatever you need
         return $this->render('default/watch.html.twig',[
