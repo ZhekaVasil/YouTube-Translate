@@ -499,7 +499,9 @@
         var authFormWrapper = document.getElementById('authFormWrapper');
         var authCancelBtn = document.getElementById('authCancelBtn');
         var authForm = document.forms.authForm;
+        {% if admin == false %}
         nav_auth.onclick = showForm;
+        {% endif %}
         drawer_auth.onclick = showForm;
         authCancelBtn.onclick = hideForm;
         function showForm(e) {
