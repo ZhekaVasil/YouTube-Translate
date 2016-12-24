@@ -37,7 +37,11 @@
                     <!-- Navigation. We hide it in small screens. -->
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
                         <a class="mdl-navigation__link" style="cursor: pointer"><i class="material-icons" id="nav_addBtn">add_circle</i></a>
+                        {% if admin %}
+                        <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Выход</a>
+                        {% else %}
                         <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
+                        {% endif %}
                     </nav>
                 </div>
             </header>
@@ -118,7 +122,7 @@
                             <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Пароль</label>
                         </div>
                         <div class="buttonWrapper">
-                            <input type="submit" id="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
+                            <input type="submit" name="authOk" id="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
                             <button id="authCancelBtn" class="mdl-button mdl-js-button mdl-button--accent">
                                 Отмена
                             </button>

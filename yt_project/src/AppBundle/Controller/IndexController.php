@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 class IndexController extends Controller
 {
     /**
@@ -14,7 +15,13 @@ class IndexController extends Controller
     public function indexAction(Request $request)
     {
         $conn = $this->get('database_connection');
+        $cookies = $request->cookies;
+        $admin = false;
 
+        if ($cookies->has('user') and $cookies->get('user')=='admin' )
+        {
+            $admin = true;
+        }
 
 
         // pagination
@@ -48,16 +55,23 @@ class IndexController extends Controller
             exit();
         }
 
+        if($request->request->get('authOk')){
+            $login = $request->request->get('title');
+            $pass = $request->request->get('idvid');
+            $res = $conn->fetchall("SELECT * FROM `users` WHERE user_name=:login and password=:pass LIMIT 0,1",[':login'=>$login, ':pass'=>$pass]);
+            if(count($res) == 1){
+                $response = new Response();
+                $response->headers->setCookie(new Cookie("user", 'admin'));
+                $response->send();
+               return $this->redirect('administrator');
+            }
+        }
+
 
         $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,12");//main conn
-       /* $resmore = $conn->fetchall("SELECT * FROM `vid` LIMIT 10,10");//test conn*/
         $watch = "http://127.0.0.1:8000/watch";
-        $add_new_content = "http://127.0.0.1:8000/insert";
 
 
-                /*
-                 *
-                 * */
 
        if ($request->request->get('inBtnSubmit')){
            $login = $request->request->get('login');
@@ -73,14 +87,14 @@ class IndexController extends Controller
 
        }
 
-
-
+      /*  $response = new Response();
+        $response->headers->setCookie(new Cookie("user", 'Zheka'));
+        $response->send();*/
         return $this->render('default/index.html.twig', [
             'conn' => $conn,
             'res' => $res,
-            /*'resmore' => $resmore,*/
             'file_watch_php' => $watch,
-            'add_new_content' => $add_new_content,
+            'admin' => $admin
 
         ]);
     }
