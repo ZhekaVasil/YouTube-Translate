@@ -39,7 +39,7 @@
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
                 <a class="mdl-navigation__link" href="/"><i class="material-icons">arrow_back</i></a>
-                <a class="mdl-navigation__link" href="/administrator">Вход</a>
+                <a class="mdl-navigation__link" href="" style="cursor: pointer" id="nav_auth">Вход</a>
             </nav>
         </div>
     </header>
@@ -52,11 +52,37 @@
             <hr class="style1">
             <a class="mdl-navigation__link" href="#"><i class="material-icons">face</i>О нас</a>
             <hr class="style1">
-            <a class="mdl-navigation__link" href="/administrator"><i class="material-icons">perm_contact_calendar</i>Вход</a>
+            <a class="mdl-navigation__link" href="" id="drawer_auth"><i class="material-icons">perm_contact_calendar</i>Вход</a>
         </nav>
     </div>
 </div>
 {% block body %}{% endblock %}
+<div class="formWrapper mdl-grid" id="authFormWrapper">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--4-col-desktop">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <form name="authForm" enctype="multipart/form-data" method="post" action="/index" novalidate>
+                <fieldset>
+                    <legend>Вход</legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="title" id="title" required/>
+                        <label class="mdl-textfield__label" for="title" style="color: #4f4f4f">Логин</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" name="idvid" id="idvid" required/>
+                        <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Пароль</label>
+                    </div>
+                    <div class="buttonWrapper">
+                        <input type="submit" id="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
+                        <button id="authCancelBtn" class="mdl-button mdl-js-button mdl-button--accent">
+                            Отмена
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+</div>
 
 {% block scripts %}{% endblock %}
 </body>

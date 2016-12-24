@@ -7,6 +7,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{  asset('css/material.min.css') }}">
         <link rel="stylesheet" href="{{  asset('css/style.css') }}">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -35,8 +36,8 @@
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation. We hide it in small screens. -->
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
-                        <a class="mdl-navigation__link" href="#"><i class="material-icons" id="nav_addBtn">add_circle</i></a>
-                        <a class="mdl-navigation__link"  href="#" id="nav_login">Вход</a>
+                        <a class="mdl-navigation__link" style="cursor: pointer"><i class="material-icons" id="nav_addBtn">add_circle</i></a>
+                        <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
                     </nav>
                 </div>
             </header>
@@ -46,11 +47,11 @@
                     <a class="mdl-navigation__link" href="#"><i class="material-icons">account_circle</i>Мой канал</a>
                     <a class="mdl-navigation__link" href="#"><i class="material-icons">whatshot</i>В тренде</a>
                     <a class="mdl-navigation__link" href="#"><i class="material-icons">star_border</i>Выбор редакции</a>
-                    <a class="mdl-navigation__link" href="#" id="drawer_addBtn"><i class="material-icons">add_circle</i>Добавить перевод</a>
+                    <a class="mdl-navigation__link" href="" id="drawer_addBtn"><i class="material-icons">add_circle</i>Добавить перевод</a>
                     <hr class="style1">
                     <a class="mdl-navigation__link" href="#"><i class="material-icons">face</i>О нас</a>
                     <hr class="style1">
-                    <a class="mdl-navigation__link" href=""><i class="material-icons">perm_contact_calendar</i>Вход</a>
+                    <a class="mdl-navigation__link" href="" id="drawer_auth"><i class="material-icons">perm_contact_calendar</i>Вход</a>
 
                 </nav>
             </div>
@@ -59,7 +60,7 @@
             </main>
         </div>
 
-        <div class="mdl-grid" id="formWrapper">
+        <div class="formWrapper mdl-grid" id="formWrapper">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--4-col-desktop">
                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
                     <form name="addform" enctype="multipart/form-data" method="post" action="/subeditor" novalidate>
@@ -101,36 +102,33 @@
 
             </div>
         </div>
-        <!-- Form AUTH -->
-        <!--<div class="mdl-grid" id="formWrapperlogin">
-            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--4-col-desktop">
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-                    <form name="loginform" enctype="multipart/form-data" method="post" action="/subeditor" novalidate>
-                        <fieldset>
-                            <legend>LogIn</legend>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" name="title" id="title" required/>
-                                <label class="mdl-textfield__label" for="title" style="color: #4f4f4f">Login</label>
-                            </div>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" name="idvid" id="idvid" required pattern=".*v=.*"/>
-                                <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">pass</label>
-                            </div>
 
-                            <div class="buttonWrapper">
-                                <input id="inBtnSubmit" value="Ok" type="submit" name="inBtnSubmit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
-
-
-                                <button id="cancelForm" class="mdl-button mdl-js-button mdl-button--accent">
-                                    Отмена
-                                </button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-
+    <div class="formWrapper mdl-grid" id="authFormWrapper">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--4-col-desktop">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                <form name="authForm" enctype="multipart/form-data" method="post" action="/" novalidate>
+                    <fieldset>
+                        <legend>Вход</legend>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="title" id="title" required/>
+                            <label class="mdl-textfield__label" for="title" style="color: #4f4f4f">Логин</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="password" name="idvid" id="idvid" required/>
+                            <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Пароль</label>
+                        </div>
+                        <div class="buttonWrapper">
+                            <input type="submit" id="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
+                            <button id="authCancelBtn" class="mdl-button mdl-js-button mdl-button--accent">
+                                Отмена
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-        </div>-->
+
+        </div>
+    </div>
 
 
         <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar" style="z-index: 11">

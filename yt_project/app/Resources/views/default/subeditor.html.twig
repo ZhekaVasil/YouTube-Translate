@@ -111,13 +111,13 @@
         .mdl-layout__container {
             top:0;
         }
-        .mdl-textfield__input {
+        .mainWrapper .mdl-textfield__input {
             color: white;
             padding-left: 10px;
             padding-right: 87px;
             box-sizing: border-box;
         }
-        .mdl-textfield__label {
+        .mainWrapper .mdl-textfield__label {
             padding: 0 0 0 10px;
             box-sizing: border-box;
         }
@@ -186,6 +186,82 @@
         .mdl-textfield__label:after {
             background-color: #fff;
         }
+        /*=========================
+                   FORM
+      =========================*/
+
+        form {
+            padding: 20px;
+            color: white;
+        }
+        form .mdl-textfield {
+            width: 100%;
+        }
+        .mdl-textfield__label:after {
+            background-color: white;
+        }
+
+        .mdl-snackbar__action {
+            opacity: 1;
+        }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 1000px #131313 inset;
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: white;
+        }
+
+        .formWrapper {
+            visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:0;
+            z-index: 10;
+            background-color: rgba(0,0,0,.5);
+            -webkit-transition: visibility .2s linear;
+            -moz-transition: visibility .2s linear;
+            -o-transition: visibility .2s linear;
+            transition: visibility .2s linear;
+
+        }
+        .formWrapper  .mdl-cell {
+            position: absolute;
+            top: -450px;
+            padding-right: 26px;
+            -webkit-transition: top .2s cubic-bezier(.4,0,.2,1);
+            -moz-transition: top .2s cubic-bezier(.4,0,.2,1);
+            -o-transition: top .2s cubic-bezier(.4,0,.2,1);
+            transition: top .2s cubic-bezier(.4,0,.2,1);
+        }
+        .formWrapper.show {
+            visibility: visible;
+
+        }
+        .formWrapper.show .mdl-cell {
+            top:150px;
+        }
+        .formWrapper label[for=audio] {
+            color: white;
+            bottom: -41px;
+        }
+        .buttonWrapper {
+            text-align: right;
+        }
+        .buttonWrapper button.mdl-button--accent.mdl-button--accent, .buttonWrapper input.mdl-button--accent.mdl-button--accent {
+            color: white;
+            background-color: #0c0c0c;
+        }
+
 
     </style>
 {% endblock %}
@@ -412,12 +488,44 @@
 
         </script>
     {% endif %}
-
-
 {% endblock %}
 
 
-{% block script %}
-<script>
-</script>
+{% block scripts %}
+    <script>
+        // A U T H  F O R M
+        var nav_auth = document.getElementById('nav_auth');
+        var drawer_auth = document.getElementById('drawer_auth');
+        var authFormWrapper = document.getElementById('authFormWrapper');
+        var authCancelBtn = document.getElementById('authCancelBtn');
+        var authForm = document.forms.authForm;
+        nav_auth.onclick = showForm;
+        drawer_auth.onclick = showForm;
+        authCancelBtn.onclick = hideForm;
+        function showForm(e) {
+            e.preventDefault();
+            authFormWrapper.classList.add('show');
+            authForm.removeAttribute('novalidate');
+            window.addEventListener('click', addListenerOnWindow)
+        }
+        function hideForm(e, wrapperId) {
+            e ? e.preventDefault() : false;
+
+            window.removeEventListener('click', addListenerOnWindow);
+            if(wrapperId){
+                wrapperId.classList.remove('show');
+                document.querySelector('#' + wrapperId.id + ' form').setAttribute('novalidate', '');
+                return;
+            }
+            authFormWrapper.classList.remove('show');
+            authForm.setAttribute('novalidate', '');
+        }
+
+        function addListenerOnWindow(ev) {
+            if(ev.target.className.indexOf('show')>0){
+                hideForm(false, ev.target)
+            }
+        }
+    </script>
+
 {% endblock %}

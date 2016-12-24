@@ -55,12 +55,23 @@ hr.style1{
 }
 */
 
+
+/*=====================================
+                F O R M
+======================================*/
+.formWrapper .demo-card-wide {
+    box-shadow: 0 2px 2px 0 rgb(0, 0, 0), 0 3px 1px -2px rgb(0, 0, 0), 0 1px 5px 0 rgb(0, 0, 0);
+}
 /*=====================================
                 CARDS
 ======================================*/
  .demo-card-wide.mdl-card {
      width: 100%;
      text-align: left;
+ }
+ .formWrapper .demo-card-wide.mdl-card {
+     max-width: 400px;
+     margin: 0 auto;
  }
 .mdl-card__supporting-text > h2 {
     display: inline-block;

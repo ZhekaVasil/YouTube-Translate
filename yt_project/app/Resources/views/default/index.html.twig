@@ -52,7 +52,7 @@
             -webkit-text-fill-color: white;
         }
 
-        #formWrapper {
+        .formWrapper {
            visibility: hidden;
             position: fixed;
             top: 0;
@@ -67,7 +67,7 @@
             transition: visibility .2s linear;
 
         }
-        #formWrapper  .mdl-cell {
+        .formWrapper  .mdl-cell {
             position: absolute;
             top: -450px;
             padding-right: 26px;
@@ -76,21 +76,21 @@
             -o-transition: top .2s cubic-bezier(.4,0,.2,1);
             transition: top .2s cubic-bezier(.4,0,.2,1);
         }
-        #formWrapper.show {
+        .formWrapper.show {
            visibility: visible;
 
         }
-        #formWrapper.show .mdl-cell {
+        .formWrapper.show .mdl-cell {
             top:150px;
         }
-        #formWrapper label[for=audio] {
+        .formWrapper label[for=audio] {
             color: white;
             bottom: -41px;
         }
         .buttonWrapper {
             text-align: right;
         }
-        .buttonWrapper button.mdl-button--accent.mdl-button--accent {
+        .buttonWrapper button.mdl-button--accent.mdl-button--accent, .buttonWrapper input.mdl-button--accent.mdl-button--accent {
             color: white;
             background-color: #0c0c0c;
         }
@@ -215,35 +215,68 @@
             snackbarContainer.MaterialSnackbar.showSnackbar(data);
         };
         var form = document.forms.addform;
+        var authForm = document.forms.authForm;
         var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
 
         form.onsubmit = function () {
             loaderWrapper.style.display = 'table';
         };
         function sendToSubeditor() {
-            loaderWrapper.style.display = 'table';
-            if(form.checkValidity()) {form.submit();}
+            if(form.checkValidity()) {
+                loaderWrapper.style.display = 'table';
+                form.submit();
+            }
         }
         
         
         
         var nav_addBtn = document.getElementById('nav_addBtn');
+        var nav_auth = document.getElementById('nav_auth');
         var drawer_addBtn = document.getElementById('drawer_addBtn');
+        var drawer_auth = document.getElementById('drawer_auth');
         var formWrapper = document.getElementById('formWrapper');
+        var authFormWrapper = document.getElementById('authFormWrapper');
         var cancelBtn = document.getElementById('cancelForm');
+        var authCancelBtn = document.getElementById('authCancelBtn');
         nav_addBtn.onclick = showForm;
+        nav_auth.onclick = showForm;
         drawer_addBtn.onclick = showForm;
+        drawer_auth.onclick = showForm;
         cancelBtn.onclick = hideForm;
+        authCancelBtn.onclick = hideForm;
         function showForm(e) {
             e.preventDefault();
-            formWrapper.classList.add('show');
-            form.removeAttribute('novalidate');
+            if(e.target.id == 'nav_addBtn' || e.target.id == 'drawer_addBtn'){
+                formWrapper.classList.add('show');
+                form.removeAttribute('novalidate');
+            } else {
+                authFormWrapper.classList.add('show');
+                authForm.removeAttribute('novalidate');
+            }
+           window.addEventListener('click', addListenerOnWindow)
         }
-        function hideForm(e) {
-            e.preventDefault();
-            formWrapper.classList.remove('show');
-            form.setAttribute('novalidate', '');
+        function hideForm(e, wrapperId) {
+            e ? e.preventDefault() : false;
 
+            window.removeEventListener('click', addListenerOnWindow);
+            if(wrapperId){
+                wrapperId.classList.remove('show');
+                document.querySelector('#' + wrapperId.id + ' form').setAttribute('novalidate', '');
+                return;
+            }
+            if(e.target.id == 'cancelForm'){
+                formWrapper.classList.remove('show');
+                form.setAttribute('novalidate', '');
+            } else {
+                authFormWrapper.classList.remove('show');
+                authForm.setAttribute('novalidate', '');
+            }
+        }
+
+        function addListenerOnWindow(ev) {
+            if(ev.target.className.indexOf('show')>0){
+                hideForm(false, ev.target)
+            }
         }
 
 
