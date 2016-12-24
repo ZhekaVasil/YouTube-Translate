@@ -20,6 +20,9 @@ class WatchController extends Controller
         $audio = $array['audurl'];
         $idvid = $array['idvid'];
         $res = $conn->fetchAssoc("SELECT * FROM vid WHERE idvid LIKE '".$idvid."'");
+        if($res['title'] == ''){
+            return $this->redirectToRoute('index');
+        }
 
         // replace this example code with whatever you need
         return $this->render('default/watch.html.twig',[
