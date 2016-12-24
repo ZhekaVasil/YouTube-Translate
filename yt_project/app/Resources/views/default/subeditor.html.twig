@@ -417,7 +417,7 @@
         <div class="build" id="build" onclick="toggleToolsBar()"><i class="material-icons">build</i></div>
         <script>
             window.onbeforeunload = function() {
-                console.log('exit');
+                return "Данные не сохранены. Точно перейти?";
             };
             var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
             var checkAjax = false;
@@ -430,8 +430,8 @@
             btn.addEventListener('click', addToSQL);
 
             function addToSQL() {
-                window.onbeforeunload = function () {
-                    return false;
+                window.onbeforeunload = function() {
+                    console.log('exit');
                 };
                 loaderWrapper.style.display = 'table';
                 this.disabled = true;
