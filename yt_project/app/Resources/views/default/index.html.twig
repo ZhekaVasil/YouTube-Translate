@@ -247,7 +247,9 @@
         var cancelBtn = document.getElementById('cancelForm');
         var authCancelBtn = document.getElementById('authCancelBtn');
         nav_addBtn.onclick = showForm;
+        {% if admin == false %}
         nav_auth.onclick = showForm;
+        {% endif %}
         drawer_addBtn.onclick = showForm;
         drawer_auth.onclick = showForm;
         cancelBtn.onclick = hideForm;

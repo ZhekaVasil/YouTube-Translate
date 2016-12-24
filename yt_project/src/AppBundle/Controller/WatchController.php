@@ -15,6 +15,14 @@ class WatchController extends Controller
     {
         $conn = $this->get('database_connection');
 
+        $cookies = $request->cookies;
+        $admin = false;
+
+        if ($cookies->has('user') and $cookies->get('user')=='admin' )
+        {
+            $admin = true;
+        }
+
         $array = $request->query->all();
         $json = json_encode($array);
         $audio = $array['audurl'];
@@ -28,7 +36,8 @@ class WatchController extends Controller
         return $this->render('default/watch.html.twig',[
             'json' => $json,
             'audio' => $audio,
-            'res' => $res
+            'res' => $res,
+            'admin' => $admin
         ]);
     }
 }

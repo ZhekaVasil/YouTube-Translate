@@ -39,12 +39,16 @@
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
                 <a class="mdl-navigation__link" href="/"><i class="material-icons">arrow_back</i></a>
-                <a class="mdl-navigation__link" href="" style="cursor: pointer" id="nav_auth">Вход</a>
+                {% if admin %}
+                    <a class="mdl-navigation__link" style="cursor: pointer" onclick="deleteCookie('user')">Выход</a>
+                {% else %}
+                    <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
+                {% endif %}
             </nav>
         </div>
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title"><a href="/index"><img src="{{  asset('img/yr_logo.png') }}" alt="YouTube translate"/></a></span>
+        <span class="mdl-layout-title"><a href="/"><img src="{{  asset('img/yr_logo.png') }}" alt="YouTube translate"/></a></span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="#"><i class="material-icons">account_circle</i>Мой канал</a>
             <a class="mdl-navigation__link" href="#"><i class="material-icons">whatshot</i>В тренде</a>
@@ -60,7 +64,7 @@
 <div class="formWrapper mdl-grid" id="authFormWrapper">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--4-col-desktop">
         <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-            <form name="authForm" enctype="multipart/form-data" method="post" action="/index" novalidate>
+            <form name="authForm" enctype="multipart/form-data" method="post" action="/" novalidate>
                 <fieldset>
                     <legend>Вход</legend>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -72,7 +76,7 @@
                         <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Пароль</label>
                     </div>
                     <div class="buttonWrapper">
-                        <input type="submit" id="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
+                        <input type="submit" id="authOk" name="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
                         <button id="authCancelBtn" class="mdl-button mdl-js-button mdl-button--accent">
                             Отмена
                         </button>
@@ -85,6 +89,42 @@
 </div>
 
 {% block scripts %}{% endblock %}
+<script>
+    function setCookie(name, value, options) {
+        options = options || {};
+
+        var expires = options.expires;
+
+        if (typeof expires == "number" && expires) {
+            var d = new Date();
+            d.setTime(d.getTime() + expires * 1000);
+            expires = options.expires = d;
+        }
+        if (expires && expires.toUTCString) {
+            options.expires = expires.toUTCString();
+        }
+
+        value = encodeURIComponent(value);
+
+        var updatedCookie = name + "=" + value;
+
+        for (var propName in options) {
+            updatedCookie += "; " + propName;
+            var propValue = options[propName];
+            if (propValue !== true) {
+                updatedCookie += "=" + propValue;
+            }
+        }
+        document.cookie = updatedCookie;
+    }
+
+    function deleteCookie(name) {
+        setCookie(name, "", {
+            expires: -1
+        });
+        location.reload();
+    }
+</script>
 </body>
 
 </html>

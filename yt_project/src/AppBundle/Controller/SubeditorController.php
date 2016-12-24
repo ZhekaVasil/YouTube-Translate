@@ -13,6 +13,16 @@ class SubeditorController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+        $cookies = $request->cookies;
+        $admin = false;
+
+        if ($cookies->has('user') and $cookies->get('user')=='admin' )
+        {
+            $admin = true;
+        }
+
+
         $id = '';
         $audio = NULL;
         $title = '';
@@ -49,6 +59,7 @@ class SubeditorController extends Controller
             'title' => $title,
             'descript' => $descript,
             'audioTitle' => $audioTitle,
+            'admin' => $admin
         ]);
     }
 }
