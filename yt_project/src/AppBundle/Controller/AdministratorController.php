@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class AdministratorController extends Controller
 {
@@ -13,10 +15,10 @@ class AdministratorController extends Controller
      */
     public function MainAction(Request $request)
     {
-
-
-
-
+        $cookies = $request->cookies;
+        if($cookies->get('user')!='admin'){
+            return $this->redirect('/');
+        }
 
             // replace this example code with whatever you need
             $conn = $this->get('database_connection');

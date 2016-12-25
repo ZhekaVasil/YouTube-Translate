@@ -54,15 +54,18 @@ class IndexController extends Controller
             echo $json;
             exit();
         }
-
+        //AUTHORIZATION
         if($request->request->get('authOk')){
             $login = $request->request->get('title');
             $pass = $request->request->get('idvid');
             $res = $conn->fetchall("SELECT * FROM `users` WHERE user_name=:login and password=:pass LIMIT 0,1",[':login'=>$login, ':pass'=>$pass]);
             if(count($res) == 1){
                 $response = new Response();
-                $response->headers->setCookie(new Cookie("user", 'admin'));
+                $response->headers->setCookie(new Cookie("user", 'admin', time() + (3600 * 48), '/', null, false, false));
                 $response->send();
+                if($url = $request->request->get('url')){
+                    return $this->redirect($url);
+                }
                return $this->redirect('administrator');
             }
         }
@@ -72,24 +75,6 @@ class IndexController extends Controller
         $watch = "http://127.0.0.1:8000/watch";
 
 
-
-       if ($request->request->get('inBtnSubmit')){
-           $login = $request->request->get('login');
-           $pass = $request->request->get('pass');
-           if ($login == 'login' and ($pass) == 'pass'){
-             $this->render('default/administator.html.twig');
-               /*session_start();
-               session_id(['admin']);*/
-           }
-           else{
-               $this->render('default/index.html.twig');
-           }
-
-       }
-
-      /*  $response = new Response();
-        $response->headers->setCookie(new Cookie("user", 'Zheka'));
-        $response->send();*/
         return $this->render('default/index.html.twig', [
             'conn' => $conn,
             'res' => $res,

@@ -38,7 +38,8 @@
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
                         <a class="mdl-navigation__link" style="cursor: pointer"><i class="material-icons" id="nav_addBtn">add_circle</i></a>
                         {% if admin %}
-                        <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Выход</a>
+                        <a class="mdl-navigation__link" style="cursor: pointer" href="/administrator">Модерация</a>
+                        <a class="mdl-navigation__link" style="cursor: pointer" onclick="deleteCookie('user')">Выход</a>
                         {% else %}
                         <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
                         {% endif %}
@@ -55,7 +56,12 @@
                     <hr class="style1">
                     <a class="mdl-navigation__link" href="#"><i class="material-icons">face</i>О нас</a>
                     <hr class="style1">
+                    {% if admin %}
+                    <a class="mdl-navigation__link" href="/administrator"><i class="material-icons">edit</i>Модерация</a>
+                    <a class="mdl-navigation__link" href="" onclick="deleteCookie('user')"><i class="material-icons">perm_contact_calendar</i>Выход</a>
+                    {% else %}
                     <a class="mdl-navigation__link" href="" id="drawer_auth"><i class="material-icons">perm_contact_calendar</i>Вход</a>
+                    {% endif %}
 
                 </nav>
             </div>
@@ -121,6 +127,7 @@
                             <input class="mdl-textfield__input" type="password" name="idvid" id="idvid" required/>
                             <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Пароль</label>
                         </div>
+                        <input style="display: none" class="mdl-textfield__input" type="text" name="url" id="hiddenUrl"/>
                         <div class="buttonWrapper">
                             <input type="submit" name="authOk" id="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
                             <button id="authCancelBtn" class="mdl-button mdl-js-button mdl-button--accent">
@@ -142,5 +149,47 @@
 
 
         {% block scripts %}{% endblock %}
+    <script>
+
+        //hiden input url
+        var hiddenUrl = document.getElementById('hiddenUrl');
+        hiddenUrl.value = window.location.href;
+
+
+        function setCookie(name, value, options) {
+            options = options || {};
+
+            var expires = options.expires;
+
+            if (typeof expires == "number" && expires) {
+                var d = new Date();
+                d.setTime(d.getTime() + expires * 1000);
+                expires = options.expires = d;
+            }
+            if (expires && expires.toUTCString) {
+                options.expires = expires.toUTCString();
+            }
+
+            value = encodeURIComponent(value);
+
+            var updatedCookie = name + "=" + value;
+
+            for (var propName in options) {
+                updatedCookie += "; " + propName;
+                var propValue = options[propName];
+                if (propValue !== true) {
+                    updatedCookie += "=" + propValue;
+                }
+            }
+            document.cookie = updatedCookie;
+        }
+
+        function deleteCookie(name) {
+            setCookie(name, "", {
+                expires: -1
+            });
+            location.reload();
+        }
+    </script>
     </body>
 </html>

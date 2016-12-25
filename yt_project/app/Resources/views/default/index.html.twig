@@ -63,7 +63,7 @@
             right: 0;
             bottom:0;
             z-index: 10;
-            background-color: rgba(0,0,0,.5);
+            background-color: rgba(0,0,0,.8);
             -webkit-transition: visibility .2s linear;
             -moz-transition: visibility .2s linear;
             -o-transition: visibility .2s linear;
@@ -247,9 +247,11 @@
         var cancelBtn = document.getElementById('cancelForm');
         var authCancelBtn = document.getElementById('authCancelBtn');
         nav_addBtn.onclick = showForm;
+        {% if admin == false %}
         nav_auth.onclick = showForm;
-        drawer_addBtn.onclick = showForm;
         drawer_auth.onclick = showForm;
+        {% endif %}
+        drawer_addBtn.onclick = showForm;
         cancelBtn.onclick = hideForm;
         authCancelBtn.onclick = hideForm;
         function showForm(e) {

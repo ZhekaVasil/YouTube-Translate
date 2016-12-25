@@ -15,10 +15,22 @@ class WatchController extends Controller
     {
         $conn = $this->get('database_connection');
 
+        $cookies = $request->cookies;
+        $admin = false;
+
+        if ($cookies->has('user') and $cookies->get('user')=='admin' )
+        {
+            $admin = true;
+        }
+
         $array = $request->query->all();
         $json = json_encode($array);
         $audio = $array['audurl'];
         $idvid = $array['idvid'];
+        $moderation = false;
+        if(isset($array['m']) and $array['m'] == 'true' and $admin){
+            $moderation = true;
+        }
         $res = $conn->fetchAssoc("SELECT * FROM vid WHERE idvid LIKE '".$idvid."'");
         if($res['title'] == ''){
             return $this->redirectToRoute('index');
@@ -28,7 +40,9 @@ class WatchController extends Controller
         return $this->render('default/watch.html.twig',[
             'json' => $json,
             'audio' => $audio,
-            'res' => $res
+            'res' => $res,
+            'admin' => $admin,
+            'moderation' => $moderation
         ]);
     }
 }
