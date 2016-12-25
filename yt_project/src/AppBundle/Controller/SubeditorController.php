@@ -48,6 +48,7 @@ class SubeditorController extends Controller
             }
             $title = $request->request->get('title');
             $descript = $request->request->get('descript');
+            $descript =  str_replace("\r\n", '<br/>', $descript);
 
         }
 

@@ -302,6 +302,13 @@
     <div class="contentWrapper">
         <div class="videoContent">
             <div class="playerWrapper">
+                <div class="loaderWrapper" style="display: table; position: absolute; top: 0; bottom: 0; height: 720px">
+                    <div class="loader" id="loader-4">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
                 <div id="player"></div>
                 <div class="infoWrapper">
                     <div id="info"></div>
@@ -309,19 +316,21 @@
             </div>
             <div class="details">
                 <div class="title">{{ res['title'] }}</div>
-                <div class="description">{{ res['descript'] }}</div>
+                <div class="description" id="descript"></div>
             </div>
             {% if moderation == false %}
             <div class="commentsWrapper">
                 <div id="disqus_thread"></div>
             </div>
                 {% else %}
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                       Удалить
-                    </button>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Добавить
-                    </button>
+                    <div style="margin-top: 16px">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #4f805d; margin-right: 10px">
+                            Добавить
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #a51919">
+                            Удалить
+                        </button>
+                    </div>
             {% endif %}
         </div>
     </div>
@@ -370,6 +379,13 @@
 
 {% block scripts %}
     <script>
+        function htmlDecode(input){
+            var e = document.createElement('div');
+            e.innerHTML = input;
+            return e.childNodes[0].nodeValue;
+        }
+        //br replace
+        document.getElementById('descript').innerHTML = '{{ res['descript'] }}'.replace(/&amp;lt;br\/&amp;gt;/g, '<br />');
         (function() { // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
             s.src = '//zhekavasil-by.disqus.com/embed.js';
