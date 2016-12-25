@@ -111,7 +111,7 @@ class AdministratorController extends Controller
                     'descript' => $rez['descript']
                 ]);
 
-
+                $del_p = $conn->query("DELETE  FROM `moderate` WHERE `#`=$publicID");
 
             }//END PUBLIC
 
