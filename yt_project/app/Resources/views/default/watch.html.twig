@@ -257,7 +257,7 @@
             right: 0;
             bottom:0;
             z-index: 10;
-            background-color: rgba(0,0,0,.5);
+            background-color: rgba(0,0,0,.8);
             -webkit-transition: visibility .2s linear;
             -moz-transition: visibility .2s linear;
             -o-transition: visibility .2s linear;
@@ -295,6 +295,9 @@
     </style>
 {% endblock %}
 
+{% block hiddenUrl %}
+    <input style="display: none" class="mdl-textfield__input" type="text" name="url" id="hiddenUrl"/>
+{% endblock %}
 {% block body %}
     <div class="contentWrapper">
         <div class="videoContent">
@@ -308,9 +311,18 @@
                 <div class="title">{{ res['title'] }}</div>
                 <div class="description">{{ res['descript'] }}</div>
             </div>
+            {% if moderation == false %}
             <div class="commentsWrapper">
                 <div id="disqus_thread"></div>
             </div>
+                {% else %}
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                       Удалить
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Добавить
+                    </button>
+            {% endif %}
         </div>
     </div>
 
@@ -377,6 +389,11 @@
         };
     </script>
 <script>
+    //hiden input url
+    var hiddenUrl = document.getElementById('hiddenUrl');
+    hiddenUrl.value = window.location.href;
+
+
     var controller_json = '{{ json }}';
     controller_json = controller_json.replace(/&quot;/g, '"');
     controller_json = controller_json.replace(/(?:\r\n|\r|\n)/g, '');
@@ -414,8 +431,8 @@
     var authForm = document.forms.authForm;
     {% if admin == false %}
     nav_auth.onclick = showForm;
-    {% endif %}
     drawer_auth.onclick = showForm;
+    {% endif %}
     authCancelBtn.onclick = hideForm;
     function showForm(e) {
         e.preventDefault();

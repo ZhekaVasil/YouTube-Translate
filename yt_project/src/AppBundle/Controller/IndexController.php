@@ -54,7 +54,7 @@ class IndexController extends Controller
             echo $json;
             exit();
         }
-
+        //AUTHORIZATION
         if($request->request->get('authOk')){
             $login = $request->request->get('title');
             $pass = $request->request->get('idvid');
@@ -63,6 +63,9 @@ class IndexController extends Controller
                 $response = new Response();
                 $response->headers->setCookie(new Cookie("user", 'admin', time() + (3600 * 48), '/', null, false, false));
                 $response->send();
+                if($url = $request->request->get('url')){
+                    return $this->redirect($url);
+                }
                return $this->redirect('administrator');
             }
         }

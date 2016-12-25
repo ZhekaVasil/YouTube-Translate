@@ -40,6 +40,7 @@
             <nav class="mdl-navigation mdl-layout--large-screen-only">
                 <a class="mdl-navigation__link" href="/"><i class="material-icons">arrow_back</i></a>
                 {% if admin %}
+                    <a class="mdl-navigation__link" style="cursor: pointer" href="/administrator">Модерация</a>
                     <a class="mdl-navigation__link" style="cursor: pointer" onclick="deleteCookie('user')">Выход</a>
                 {% else %}
                     <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
@@ -56,7 +57,12 @@
             <hr class="style1">
             <a class="mdl-navigation__link" href="#"><i class="material-icons">face</i>О нас</a>
             <hr class="style1">
-            <a class="mdl-navigation__link" href="" id="drawer_auth"><i class="material-icons">perm_contact_calendar</i>Вход</a>
+            {% if admin %}
+                <a class="mdl-navigation__link" href="/administrator"><i class="material-icons">edit</i>Модерация</a>
+                <a class="mdl-navigation__link" href="" onclick="deleteCookie('user')"><i class="material-icons">perm_contact_calendar</i>Выход</a>
+            {% else %}
+                <a class="mdl-navigation__link" href="" id="drawer_auth"><i class="material-icons">perm_contact_calendar</i>Вход</a>
+            {% endif %}
         </nav>
     </div>
 </div>
@@ -75,6 +81,8 @@
                         <input class="mdl-textfield__input" type="password" name="idvid" id="idvid" required/>
                         <label class="mdl-textfield__label" for="dvid" style="color: #4f4f4f">Пароль</label>
                     </div>
+                    {% block hiddenUrl %}
+                    {% endblock %}
                     <div class="buttonWrapper">
                         <input type="submit" id="authOk" name="authOk" value="Вход" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"/>
                         <button id="authCancelBtn" class="mdl-button mdl-js-button mdl-button--accent">
@@ -90,7 +98,7 @@
 
 {% block scripts %}{% endblock %}
 <script>
-    function setCookie(name, value, options) {
+        function setCookie(name, value, options) {
         options = options || {};
 
         var expires = options.expires;

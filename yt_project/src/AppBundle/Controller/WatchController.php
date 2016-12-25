@@ -27,6 +27,10 @@ class WatchController extends Controller
         $json = json_encode($array);
         $audio = $array['audurl'];
         $idvid = $array['idvid'];
+        $moderation = false;
+        if(isset($array['m']) and $array['m'] == 'true' and $admin){
+            $moderation = true;
+        }
         $res = $conn->fetchAssoc("SELECT * FROM vid WHERE idvid LIKE '".$idvid."'");
         if($res['title'] == ''){
             return $this->redirectToRoute('index');
@@ -37,7 +41,8 @@ class WatchController extends Controller
             'json' => $json,
             'audio' => $audio,
             'res' => $res,
-            'admin' => $admin
+            'admin' => $admin,
+            'moderation' => $moderation
         ]);
     }
 }

@@ -227,7 +227,7 @@
             right: 0;
             bottom:0;
             z-index: 10;
-            background-color: rgba(0,0,0,.5);
+            background-color: rgba(0,0,0,.8);
             -webkit-transition: visibility .2s linear;
             -moz-transition: visibility .2s linear;
             -o-transition: visibility .2s linear;
@@ -501,8 +501,8 @@
         var authForm = document.forms.authForm;
         {% if admin == false %}
         nav_auth.onclick = showForm;
-        {% endif %}
         drawer_auth.onclick = showForm;
+        {% endif %}
         authCancelBtn.onclick = hideForm;
         function showForm(e) {
             e.preventDefault();
