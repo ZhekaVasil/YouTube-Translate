@@ -28,10 +28,18 @@ class WatchController extends Controller
         $audio = $array['audurl'];
         $idvid = $array['idvid'];
         $moderation = false;
-        if(isset($array['m']) and $array['m'] == 'true' and $admin){
+        $id = false;
+        $res = '';
+        if(isset($array['m']) and isset($array['id']) and $array['m'] == 'true' and $admin){
             $moderation = true;
+            $id = $array['id'];
         }
-        $res = $conn->fetchAssoc("SELECT * FROM vid WHERE idvid LIKE '".$idvid."'");
+        if($moderation){
+            $res = $conn->fetchAssoc("SELECT * FROM moderate WHERE idvid LIKE '".$idvid."'");
+        } else {
+            $res = $conn->fetchAssoc("SELECT * FROM vid WHERE idvid LIKE '".$idvid."'");
+        }
+
         if($res['title'] == ''){
             return $this->redirectToRoute('index');
         }
@@ -42,7 +50,8 @@ class WatchController extends Controller
             'audio' => $audio,
             'res' => $res,
             'admin' => $admin,
-            'moderation' => $moderation
+            'moderation' => $moderation,
+            'id' => $id
         ]);
     }
 }

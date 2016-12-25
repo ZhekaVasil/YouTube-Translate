@@ -291,6 +291,11 @@
             color: white;
             background-color: #0c0c0c;
         }
+        {% if moderation == true %}
+        form:after {
+            display: none;
+        }
+        {% endif %}
 
     </style>
 {% endblock %}
@@ -323,14 +328,19 @@
                 <div id="disqus_thread"></div>
             </div>
                 {% else %}
-                    <div style="margin-top: 16px">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #4f805d; margin-right: 10px">
-                            Добавить
-                        </button>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #a51919">
-                            Удалить
-                        </button>
-                    </div>
+                    <form action="/administrator" method="post" >
+                        <div style="margin-top: 16px">
+                            <label for="public" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #4f805d; margin-right: 10px">
+                                Добавить
+                            </label>
+                            <label for="delete" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #a51919">
+                                Удалить
+                            </label>
+                            <input type="submit" name="public" id="public" value="{{ id }}" style="display: none">
+                            <input type="submit" name="delete" id="delete" value="{{ id }}" style="display: none">
+                        </div>
+                    </form>
+
             {% endif %}
         </div>
     </div>
@@ -385,7 +395,8 @@
             return e.childNodes[0].nodeValue;
         }
         //br replace
-        document.getElementById('descript').innerHTML = '{{ res['descript'] }}'.replace(/&amp;lt;br\/&amp;gt;/g, '<br />');
+        var phpStr = '{{ res['descript'] }}';
+        document.getElementById('descript').innerHTML = phpStr.replace(/&amp;lt;br\/&amp;gt;/g, '<br />');
         (function() { // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
             s.src = '//zhekavasil-by.disqus.com/embed.js';

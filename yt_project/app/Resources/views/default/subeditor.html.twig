@@ -364,6 +364,8 @@
                 console.log('exit');
             };
             loaderWrapper.style.display = 'table';
+            loaderWrapper.style.position = 'fixed';
+            loaderWrapper.style.height = '100%';
             this.disabled = true;
             player.mute();
             makeAjax();
@@ -441,6 +443,8 @@
                     console.log('exit');
                 };
                 loaderWrapper.style.display = 'table';
+                loaderWrapper.style.position = 'fixed';
+                loaderWrapper.style.height = '100%';
                 this.disabled = true;
                 player.mute();
                 makeAjax();

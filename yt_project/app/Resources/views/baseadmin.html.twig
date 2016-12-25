@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Carlos Alvarez - Alvarez.is">
-
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-        {{ asset("") }}
+    {% block dragula %}
+    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
     <link href="{{asset("css/main.css") }}" rel="stylesheet">
     <link href="{{ asset("css/font-style.css") }}" rel="stylesheet">
     <link href="{{ asset("css/flexslider.css") }}" rel="stylesheet">
@@ -51,7 +51,8 @@
     <!-- Google Fonts call. Font Used Open Sans & Raleway -->
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-
+    {% block styles %}
+    {% endblock %}
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -71,21 +72,39 @@
 
         });
 
-        $(window).load(function () {
-
-            $('.flexslider').flexslider({
-                animation: "slide",
-                slideshow: true,
-                start: function (slider) {
-                    $('body').removeClass('loading');
-                }
-            });
-        });
 
     </script>
 </head>
     <body>
   {% block body %}{% endblock %}
+  <script>
+      (function () {
+          function checkTime(i) {
+              return (i < 10) ? "0" + i : i;
+          }
+
+          function startTime() {
+              var today = new Date(),
+                      h = checkTime(today.getHours()),
+                      m = checkTime(today.getMinutes()),
+                      s = checkTime(today.getSeconds());
+              document.getElementById('showTime').innerHTML = h + ":" + m + ":" + s;
+              t = setTimeout(function () {
+                  startTime()
+              }, 500);
+          }
+          startTime();
+                  var d=new Date();
+                  var day=d.getDate();
+                  var month=d.getMonth() + 1;
+                  var year=d.getFullYear();
+          document.getElementById('showDate').innerHTML = day + "/" + month + "/" + year;
+      }
+
+      )();
+  </script>
+  {% block scripts %}{% endblock %}
     </body>
+
 </html>
 

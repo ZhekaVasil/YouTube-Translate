@@ -1,0 +1,144 @@
+{% extends "baseadmin.html.twig" %}
+{% block dragula %}
+    <link href="{{ asset('css/dragula.min.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block styles %}
+<style>
+    .gu-transit {
+        background-color: #080808;
+    }
+    #left > div, #right > div {
+        color: white;
+        text-align: center;
+        padding: 0;
+    }
+    .wrap {
+        background-color: #151515;
+        padding-bottom: 10px;
+    }
+    .gu-mirror {
+        text-align: center;
+        border-bottom: none!important;
+    }
+</style>
+
+{% endblock %}
+{% block body %}
+
+    <!-- NAVIGATION MENU -->
+    <div class="navbar-nav navbar-inverse navbar-fixed-top" style="margin: 0">
+        <div class="container">
+            <div class="navbar-header" style="margin: 0">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('index') }}" style="padding: 10px 35px 0px 0px;"><img src="{{  asset('img/yr_logo.png') }}" alt="" style="width: 150px;height: 33px;"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/administrator"><i class="icon-home icon-white"></i>Модерация</a></li>
+                    <li class="active"><a href=/administrator/top><i class="icon-th icon-white"></i>Выбор редакции</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+<div class="container">
+    <div class="row">
+
+        <!-- USER PROFILE BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+                <dtitle>Модератор</dtitle>
+                <hr>
+                <div class="thumbnail">
+                    <img src="{{ asset("images/admin.png") }}" alt="Marcel Newman" class="img-circle" style="width: 151px">
+                </div><!-- /thumbnail -->
+                <h1>Admin</h1>
+                <h3>Zheka, Vasil</h3>
+            </div>
+        </div>
+
+        <!-- DONUT CHART BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+                <dtitle>Видео на модерации</dtitle>
+                <hr>
+                <div id="load" style="display: none"></div>
+                <h2 style="font-size: 207px">{{ countModerate }}</h2>
+            </div>
+        </div>
+
+        <!-- DONUT CHART BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+                <dtitle>Видео на сайте</dtitle>
+                <hr>
+                <div id="space" style="display: none"></div>
+                <h2 style="font-size: 207px">{{ countVid }}</h2>
+            </div>
+        </div>
+
+        <div class="col-sm-3 col-lg-3">
+
+            <!-- LOCAL TIME BLOCK -->
+            <div class="half-unit">
+                <dtitle>Время</dtitle>
+                <hr>
+                <div class="clockcenter">
+                    <digiclock id="showTime" style="font-size: 43px"></digiclock>
+                </div>
+            </div>
+
+            <!-- SERVER UPTIME -->
+            <div class="half-unit">
+                <dtitle>Дата</dtitle>
+                <hr>
+                <div class="cont" style="margin: 0">
+                    <div id="showDate" style="font-size: 37px"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <h2>Видео</h2>
+                <div class="row" style="min-height: 210px; background-color: #393939" id="left">
+                    {% for var in res %}
+                    <div class="col-md-12" style="border-bottom: 12px solid #1f1f1f">
+                        <div class="wrap">
+                            <img src="{{ var['thumbnail'] }}" style="width: 100%"/>
+                            <h2 class="mdl-card__title-text">{{ var['title'] }}</h2>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-2">
+                <h2>Выбор редакции</h2>
+                <div class="row" style="min-height: 210px; height: 100%; background-color: #393939" id="right">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+{% block scripts %}
+    <script src="{{ asset('js/dragula.min.js') }}"></script>
+    <script>
+        dragula([document.querySelector('#left'), document.querySelector('#right')], {
+            removeOnSpill: true
+        });
+    </script>
+{% endblock %}
+
+

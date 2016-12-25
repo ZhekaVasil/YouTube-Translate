@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 
-class AdministratorController extends Controller
+class AdministratorTopController extends Controller
 {
     /**
-     * @Route("/administrator", name="administrator")
+     * @Route("/administrator/top", name="administrator/top")
      */
     public function MainAction(Request $request)
     {
@@ -23,31 +23,11 @@ class AdministratorController extends Controller
             // replace this example code with whatever you need
             $conn = $this->get('database_connection');
 
-        if ($request->request->get('delete')) {
-            $delID = $request->request->get('delete');
-            $conn->query("DELETE  FROM `moderate` WHERE `#`=$delID");
-        }
-
-        if ($request->request->get('public')) {//Публикация
-            $publicID = $request->request->get('public');
-            $rez = $conn->fetchAssoc("SELECT * FROM `moderate` WHERE `#` = $publicID");//main conn
-
-            $conn->insert('vid', [
-                'idvid' => $rez['idvid'] ,
-                'thumbnail' => $rez['thumbnail'],
-                'audurl'=> $rez['audurl'],
-                'title'=> $rez['title'],
-                'descript' => $rez['descript']
-            ]);
-
-            $conn->query("DELETE  FROM `moderate` WHERE `#`=$publicID");
-
-        }//END PUBLIC
 
 
 
 
-            $res = $conn->fetchall("SELECT * FROM `moderate` ORDER BY `moderate`.`#` DESC ");//main conn
+            $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,12");//main conn
             $countModerate = $conn->executeQuery("SELECT * FROM `moderate`")->rowCount();
             $countVid = $conn->executeQuery("SELECT * FROM `vid`")->rowCount();
 
@@ -56,13 +36,12 @@ class AdministratorController extends Controller
 
 
             // replace this example code with whatever you need
-            return $this->render('default/administrator.html.twig', [
+            return $this->render('default/administratorTop.html.twig', [
                 'res' => $res,
                 'file_watch_php' => $watch,
                 'add_new_content' => $add_new_content,
                 'countModerate' => $countModerate,
                 'countVid' => $countVid
-
             ]);
 
         //else $this->render('default/index.html.twig');
