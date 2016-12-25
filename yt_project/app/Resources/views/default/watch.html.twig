@@ -385,7 +385,7 @@
             return e.childNodes[0].nodeValue;
         }
         //br replace
-        document.getElementById('descript').innerHTML = htmlDecode('{{ res['descript'] }}');
+        document.getElementById('descript').innerHTML = '{{ res['descript'] }}'.replace(/&amp;lt;br\/&amp;gt;/g, '<br />');
         (function() { // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
             s.src = '//zhekavasil-by.disqus.com/embed.js';
