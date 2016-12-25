@@ -76,6 +76,7 @@ function showAud_mp3(e) {
         audio.appendChild(mp3);
         audio.volume = 0;
         progressbar.style.display = 'none';
+        //document.querySelector('.loaderWrapper').style.display = 'none';
         /* progress.innerHTML = '<audio src="' + audio + '" controls id="audio"></audio>' ;*/
     } else {
         progress_mp3.innerHTML = data.status;

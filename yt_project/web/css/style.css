@@ -67,6 +67,19 @@ form legend {
     text-transform: uppercase;
     font-size: 18px;
 }
+form {
+    position: relative;
+}
+form:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top:50px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #272727;
+}
 /*=====================================
                 CARDS
 ======================================*/
@@ -334,7 +347,7 @@ form legend {
 /*LOADER*/
 
 .loaderWrapper {
-    display: table;
+    display: none;
     position: fixed;
     left: 0;
     right: 0;

@@ -271,7 +271,14 @@
         <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
         <div class="contentWrapper">
             <div class="videoContent">
-                <div class="playerWrapper">
+                <div class="playerWrapper" style="height: 480px">
+                    <div class="loaderWrapper" style="display: table; position: absolute; top: 0; bottom: 0; height: 480px">
+                        <div class="loader" id="loader-4">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                     <div id="player"></div>
                     <div class="infoWrapper">
                         <div id="info"></div>
@@ -391,7 +398,7 @@
                     data.append('idvid',"{{ id }}");
                     data.append('audurl', audUrl);
                     data.append('title', "{{ title }}");
-                    data.append('descript', "{{ descript }}");
+                    data.append('descript','{{ descript }}'.replace(/\r|\n/g, '') );
                 var request = new XMLHttpRequest();
                 /* var xmlupload = request.upload;*/
                 request.addEventListener('load', actWhenLoad);
@@ -455,6 +462,11 @@
                 document.body.appendChild(newTag);
             }
 
+            function htmlDecode(input){
+                var e = document.createElement('div');
+                e.innerHTML = input;
+                return e.childNodes[0].nodeValue;
+            }
 
             function makeAjax() {
                 var data = new FormData();
@@ -473,7 +485,8 @@
                         data.append('idvid', "{{ id }}");
                         data.append('audurl', audUrl);
                         data.append('title', "{{ title }}");
-                        data.append('descript', "{{ descript }}");
+                        var old = '{{ descript }}';
+                        data.append('descript', old);
                         var request = new XMLHttpRequest();
                         /* var xmlupload = request.upload;*/
                         request.addEventListener('load', actWhenLoad);
@@ -492,6 +505,7 @@
 
 
 {% block scripts %}
+
     <script>
         // A U T H  F O R M
         var nav_auth = document.getElementById('nav_auth');
