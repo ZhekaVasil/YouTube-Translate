@@ -1,0 +1,282 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+    <style>
+
+        main {
+            text-align: center;
+        }
+        h2.mdl-card__title-text{
+            font-weight: 400;
+        }
+        #moreBtn {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            cursor: pointer;
+            height: 50px;
+        }
+
+        /*=========================
+                     FORM
+        =========================*/
+
+        form {
+            padding: 20px;
+            color: white;
+        }
+        form .mdl-textfield {
+            width: 100%;
+        }
+        .mdl-textfield__label:after {
+            background-color: white;
+        }
+
+
+
+
+        .mdl-snackbar__action {
+            opacity: 1;
+        }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 1000px #131313 inset;
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: white;
+        }
+
+        .formWrapper {
+           visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:0;
+            z-index: 10;
+            background-color: rgba(0,0,0,.8);
+            -webkit-transition: visibility .2s linear;
+            -moz-transition: visibility .2s linear;
+            -o-transition: visibility .2s linear;
+            transition: visibility .2s linear;
+
+        }
+        .formWrapper  .mdl-cell {
+            position: absolute;
+            top: -450px;
+            padding-right: 26px;
+            -webkit-transition: top .2s cubic-bezier(.4,0,.2,1);
+            -moz-transition: top .2s cubic-bezier(.4,0,.2,1);
+            -o-transition: top .2s cubic-bezier(.4,0,.2,1);
+            transition: top .2s cubic-bezier(.4,0,.2,1);
+        }
+        .formWrapper.show {
+           visibility: visible;
+
+        }
+        .formWrapper.show .mdl-cell {
+            top:150px;
+        }
+        .formWrapper label[for=audio] {
+            color: white;
+            bottom: -41px;
+        }
+        .buttonWrapper {
+            text-align: right;
+        }
+        .buttonWrapper button.mdl-button--accent.mdl-button--accent, .buttonWrapper input.mdl-button--accent.mdl-button--accent {
+            color: white;
+            background-color: #0c0c0c;
+        }
+/*=================================
+                L O A D E R
+==================================*/
+        .loaderWrapper {
+            display: none;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+        <div class="mdl-grid">
+    {% for var in res %}
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet">
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <a href="{{ file_watch_php }}?idvid={{ var['idvid'] }}&audurl={{ var['audurl'] }}">
+                            <img src="{{ var['thumbnail'] }}"/>
+                        </a>
+                    </div>
+                    <div class="mdl-card__supporting-text" title="{{ var['title'] }}">
+                        <h2 class="mdl-card__title-text">{{ var['title'] }}</h2>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+        </div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    //custom start
+
+        /*    var addForm = document.getElementById('moreBtn');
+            addForm.addEventListener('click', morePage);
+            function morePage(){
+                var request = new XMLHttpRequest();
+                request.addEventListener("load", show);
+                function show(e) {
+                    var data = e.target;
+                    if(data.status == 200){
+                        var div = document.createElement('div');
+                        div.setAttribute('class', 'formWrapper');
+
+                        div.innerHTML = data.responseText;
+                        document.body.appendChild(div);
+                        setTimeout(function () {
+                            div.classList.add('show');
+                        },10);
+                        closeModal();
+
+                    }
+                }
+            }
+*/
+
+
+
+
+        var moreBtn = document.getElementById('moreBtn');
+        moreBtn.addEventListener("click", showMoreContent);
+        var pageIndex = 12;
+        function showMoreContent(){
+            document.getElementById('spinner').style.display = 'inline-block';
+            document.querySelector('#moreBtn i').style.display = 'none';
+            var data = new FormData();
+            data.append('pageIndex',pageIndex );
+            var request = new XMLHttpRequest();
+            request.responseType = 'json';
+            request.addEventListener('load', addMoreContent);
+            request.open("POST","loadingByPices.php", true);
+            request.send(data);
+
+
+
+            pageIndex+=12;
+        }
+        function addMoreContent(e){
+            var data = e.target;
+            if (data.status == 200) {
+                document.querySelector('#moreBtn i').style.display = 'inline';
+                document.getElementById('spinner').style.display = 'none';
+                if(data.response.length < 12) {moreBtn.remove();}
+                var main = document.querySelector('main .mdl-grid');
+                data.response.forEach(function (item) {
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet');
+                    div.innerHTML = item;
+                    main.appendChild(div);
+                });
+
+            }
+        }
+
+      /*  function closeModal() {
+            var cancelBtn = document.getElementById('cancel');
+            cancelBtn.addEventListener('click',close);
+            function close() {
+                var modal = document.getElementsByClassName('formWrapper')[0];
+                document.body.removeChild(modal);
+            }
+        }*/
+    </script>
+    <script>
+        var audio = document.getElementById('audio');
+        var snackbarContainer = document.querySelector('#demo-toast-example');
+        audio.onchange = function () {
+            var data = {message: 'Выбран файл: ' + audio.value};
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        };
+        var form = document.forms.addform;
+        var authForm = document.forms.authForm;
+        var loaderWrapper = document.getElementsByClassName('loaderWrapper')[0];
+
+        form.onsubmit = function () {
+            loaderWrapper.style.display = 'table';
+        };
+        function sendToSubeditor() {
+            if(form.checkValidity()) {
+                loaderWrapper.style.display = 'table';
+                form.submit();
+            }
+        }
+        
+        
+        
+        var nav_addBtn = document.getElementById('nav_addBtn');
+        var nav_auth = document.getElementById('nav_auth');
+        var drawer_addBtn = document.getElementById('drawer_addBtn');
+        var drawer_auth = document.getElementById('drawer_auth');
+        var formWrapper = document.getElementById('formWrapper');
+        var authFormWrapper = document.getElementById('authFormWrapper');
+        var cancelBtn = document.getElementById('cancelForm');
+        var authCancelBtn = document.getElementById('authCancelBtn');
+        nav_addBtn.onclick = showForm;
+        {% if admin == false %}
+        nav_auth.onclick = showForm;
+        drawer_auth.onclick = showForm;
+        {% endif %}
+        drawer_addBtn.onclick = showForm;
+        cancelBtn.onclick = hideForm;
+        authCancelBtn.onclick = hideForm;
+        function showForm(e) {
+            e.preventDefault();
+            if(e.target.id == 'nav_addBtn' || e.target.id == 'drawer_addBtn'){
+                formWrapper.classList.add('show');
+                form.removeAttribute('novalidate');
+            } else {
+                authFormWrapper.classList.add('show');
+                authForm.removeAttribute('novalidate');
+            }
+           window.addEventListener('click', addListenerOnWindow)
+        }
+        function hideForm(e, wrapperId) {
+            e ? e.preventDefault() : false;
+
+            window.removeEventListener('click', addListenerOnWindow);
+            if(wrapperId){
+                wrapperId.classList.remove('show');
+                document.querySelector('#' + wrapperId.id + ' form').setAttribute('novalidate', '');
+                return;
+            }
+            if(e.target.id == 'cancelForm'){
+                formWrapper.classList.remove('show');
+                form.setAttribute('novalidate', '');
+            } else {
+                authFormWrapper.classList.remove('show');
+                authForm.setAttribute('novalidate', '');
+            }
+        }
+
+        function addListenerOnWindow(ev) {
+            if(ev.target.className.indexOf('show')>0){
+                hideForm(false, ev.target)
+            }
+        }
+
+
+    </script>
+{% endblock %}

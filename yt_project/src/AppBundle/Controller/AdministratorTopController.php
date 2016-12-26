@@ -27,7 +27,8 @@ class AdministratorTopController extends Controller
 
 
 
-            $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,12");//main conn
+            $res = $conn->fetchall("SELECT * FROM `vid` ORDER BY `vid`.`#` DESC LIMIT 0,12");
+            $res2 = $conn->fetchall("SELECT * FROM `top`");//main conn
             $countModerate = $conn->executeQuery("SELECT * FROM `moderate`")->rowCount();
             $countVid = $conn->executeQuery("SELECT * FROM `vid`")->rowCount();
 
@@ -38,6 +39,7 @@ class AdministratorTopController extends Controller
             // replace this example code with whatever you need
             return $this->render('default/administratorTop.html.twig', [
                 'res' => $res,
+                'res2' => $res2,
                 'file_watch_php' => $watch,
                 'add_new_content' => $add_new_content,
                 'countModerate' => $countModerate,
