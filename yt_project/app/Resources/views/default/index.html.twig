@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-
+{% block title %}YouTube Translate{% endblock %}
 {% block stylesheets %}
     <style>
 
         main {
+            padding-top: 30px;
             text-align: center;
         }
         h2.mdl-card__title-text{
@@ -104,11 +105,17 @@
             display: none;
         }
 
+
+
+        .mdl-cell--4-col .demo-card-wide.mdl-card.mdl-shadow--2dp {
+            transition: top 10s linear;
+        }
+
     </style>
 {% endblock %}
 
 {% block body %}
-        <div class="mdl-grid">
+        <div class="mdl-grid" style="margin-bottom: -100px">
     {% for var in res %}
             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
@@ -143,6 +150,9 @@
 
 {% block scripts %}
     <script>
+        window.onload = function () {
+            doGrid()
+        };
     //custom start
 
         /*    var addForm = document.getElementById('moreBtn');
@@ -203,7 +213,11 @@
                     main.appendChild(div);
                 });
 
+
             }
+            setTimeout(function () {
+                doGrid(true);
+            }, 200)
         }
 
       /*  function closeModal() {
@@ -287,6 +301,45 @@
             if(ev.target.className.indexOf('show')>0){
                 hideForm(false, ev.target)
             }
+        }
+
+        function doGrid(pagination) {
+            if (pagination) {
+                var newElements = document.querySelectorAll('.mdl-cell--4-col .demo-card-wide.mdl-card.mdl-shadow--2dp');
+                for(var i = pageIndex-12; i<newElements.length; i++) {
+                    newElements[i].setAttribute('position', 'relative');
+                    var startHeight2 = newElements[i].getBoundingClientRect().top;
+                    var startHeightSibling2 = newElements[i - 3].getBoundingClientRect().top;
+                    var heightSibling2 = newElements[i - 3].getBoundingClientRect().height;
+                    var height2 = startHeight2 - startHeightSibling2 - heightSibling2;
+                    if (height2 > 20) {
+                        var margin2 = height2 - 20;
+                        console.log(margin2);
+                        console.log('-----------------');
+                        newElements[i].style.top = -margin2 + 'px';
+                    }
+                }
+            } else {
+            var elements = document.querySelectorAll('.mdl-cell--4-col .demo-card-wide.mdl-card.mdl-shadow--2dp');
+            elements.forEach(function (item, i, arr) {
+                item.setAttribute('position', 'relative');
+                if (i > 2) {
+                    var startHeight = item.getBoundingClientRect().top;
+                    var startHeightSibling = arr[i - 3].getBoundingClientRect().top;
+                    var heightSibling = arr[i - 3].getBoundingClientRect().height;
+                    var height = startHeight - startHeightSibling - heightSibling;
+                    if (height != 20) {
+                        var margin = height - 20;
+                        item.style.top = -margin + 'px';
+                    }
+                } else {
+                    if (item.getBoundingClientRect().top != 80) {
+                        var firstLineHeight = item.getBoundingClientRect().top - 80;
+                        item.style.top = -firstLineHeight + 'px';
+                    }
+                }
+            })
+        }
         }
 
 

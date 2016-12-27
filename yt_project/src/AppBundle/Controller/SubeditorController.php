@@ -28,6 +28,7 @@ class SubeditorController extends Controller
         $title = '';
         $descript = '';
         $audioTitle = '123';
+        $moderation = false;
         // проверяем есть ли POST запрос от формы
         if($request->request->get('idvid')) {
             //в переменную $id записываем id видюшки
@@ -60,7 +61,8 @@ class SubeditorController extends Controller
             'title' => $title,
             'descript' => $descript,
             'audioTitle' => $audioTitle,
-            'admin' => $admin
+            'admin' => $admin,
+            'moderation' => false
         ]);
     }
 }

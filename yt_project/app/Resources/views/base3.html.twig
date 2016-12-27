@@ -11,6 +11,16 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        {% if moderation == true %}
+        .mdl-layout__header .mdl-layout__drawer-button {
+            display: none;
+        }
+        .mdl-layout__header-row {
+            padding: 0 40px;
+        }
+        {% endif %}
+    </style>
     <script src="{{  asset('scripts/material.min.js') }}"></script>
     <script src="https://apis.google.com/js/plusone.js"></script>
     <script>
@@ -32,11 +42,14 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <a class="mdl-navigation__link" href="/"><i class="material-icons">arrow_back</i></a>
+                {% if moderation == false %}
+                <a class="mdl-navigation__link" href="" onclick="back();"><i class="material-icons">arrow_back</i></a>
+                {% endif %}
                 {% if admin %}
                     <a class="mdl-navigation__link" style="cursor: pointer" href="/administrator">Модерация</a>
                     <a class="mdl-navigation__link" style="cursor: pointer" onclick="deleteCookie('user')">Выход</a>
                 {% else %}
+                    <a class="mdl-navigation__link" style="cursor: pointer" href="/top">Выбор редакции</a>
                     <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
                 {% endif %}
             </nav>
@@ -126,6 +139,10 @@
             expires: -1
         });
         location.reload();
+    }
+
+    function back(){
+        window.history.back();
     }
 </script>
 </body>

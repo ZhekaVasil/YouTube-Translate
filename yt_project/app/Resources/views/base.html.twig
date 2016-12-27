@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{{  asset('css/material.min.css') }}">
         <link rel="stylesheet" href="{{  asset('css/style.css') }}">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -39,8 +39,10 @@
                         <a class="mdl-navigation__link" style="cursor: pointer"><i class="material-icons" id="nav_addBtn">add_circle</i></a>
                         {% if admin %}
                         <a class="mdl-navigation__link" style="cursor: pointer" href="/administrator">Модерация</a>
+                        <a class="mdl-navigation__link choose" style="cursor: pointer" href="/top">Выбор редакции</a>
                         <a class="mdl-navigation__link" style="cursor: pointer" onclick="deleteCookie('user')">Выход</a>
                         {% else %}
+                        <a class="mdl-navigation__link choose" style="cursor: pointer" href="/top">Выбор редакции</a>
                         <a class="mdl-navigation__link" style="cursor: pointer" id="nav_auth">Вход</a>
                         {% endif %}
                     </nav>

@@ -45,7 +45,9 @@ if (isset($_POST['pageIndexTop'])){
         if ($arr != '') {$arr .= ',';}
         $str =
             "<div class='wrap' data-id='".$row['#']."'>".
+            "<a href='../watch?idvid=".$row['idvid']."&audurl=".$row['audurl']."' target='_blank'>".
             "<img src='".$row['thumbnail']."' style='width:100%'/>".
+            "</a>".
             "<h2 class='mdl-card__title-text'>".
             $row['title'].
             "</h2>".

@@ -166,6 +166,20 @@
         0%, 39%, 100% { opacity: 0; }
         40% { opacity: 1; }
     }
+    
+    
+    
+    h2 {
+        color: #fff;
+    }
+    div > button.btn {
+        background-color: #151515;
+        color: white;
+    }
+    .btn-default:hover, .btn-default:active, .btn-default:focus {
+        background-color: rgba(0, 0, 0, 0.53);
+        color: white;
+    }
 </style>
 
 {% endblock %}
@@ -252,12 +266,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-5">
-                <h2>Видео</h2>
+                <h2>Видео на сайте</h2>
                 <div class="row" style="min-height: 210px; background-color: #393939" id="left">
                     {% for var in res %}
                     <div class="col-md-12" style="border-bottom: 12px solid #1f1f1f">
                         <div class="wrap" data-id="{{ var['#'] }}">
-                            <img src="{{ var['thumbnail'] }}" style="width: 100%"/>
+                            <a href="{{ file_watch_php }}?idvid={{ var['idvid'] }}&audurl={{ var['audurl'] }}" target="_blank">
+                                <img src="{{ var['thumbnail'] }}" style="width: 100%"/>
+                            </a>
                             <h2 class="mdl-card__title-text">{{ var['title'] }}</h2>
                         </div>
                     </div>
@@ -290,7 +306,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2" style="text-align: center; margin-top: 57px">
+            <div class="col-sm-2" style="text-align: center">
                 <button class="btn btn-default" type="submit" onclick="sendToTop()">ГОТОВО</button>
             </div>
             <div class="col-sm-5">
@@ -299,7 +315,9 @@
                     {% for var in res2 %}
                         <div class="col-md-12" style="border-bottom: 12px solid #1f1f1f">
                             <div class="wrap" data-id="{{ var['#'] }}">
-                                <img src="{{ var['thumbnail'] }}" style="width: 100%"/>
+                                <a href="{{ file_watch_php }}?idvid={{ var['idvid'] }}&audurl={{ var['audurl'] }}" target="_blank">
+                                    <img src="{{ var['thumbnail'] }}" style="width: 100%"/>
+                                </a>
                                 <h2 class="mdl-card__title-text">{{ var['title'] }}</h2>
                             </div>
                         </div>

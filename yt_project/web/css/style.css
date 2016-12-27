@@ -400,3 +400,22 @@ form:after {
         opacity: 1;
     }
 }
+
+/*=====================================
+            BOTTOM SUB PANEL
+======================================*/
+div.build {
+    background-color: black;
+    right: 0;
+    z-index: 999999;
+}
+div.build i {
+    color: white;
+}
+
+/*================================
+            NAV
+=================================*/
+.mdl-navigation__link:hover {
+    background-color: rgba(0, 0, 0, 0.22);
+}

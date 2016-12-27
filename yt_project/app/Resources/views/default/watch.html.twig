@@ -1,5 +1,5 @@
 {% extends 'base3.html.twig' %}
-
+{% block title %}{{ res['title'] }}{% endblock %}
 {% block stylesheets %}
     <style>
         * {
@@ -351,7 +351,7 @@
     </audio>
     <div id="progress_mp3"></div>
     <div id="progress_ogg"></div>
-    <div class="bt_wrapper" style="bottom: -40px">
+    <div class="bt_wrapper" style="bottom: -40px; z-index: 1111">
         <div class="note mute" id="note" style="margin-right: 10px">
             <i class="material-icons">audiotrack</i>
         </div>
@@ -370,7 +370,7 @@
     <div class="build" id="build" onclick="toggleToolsBar()"><i class="material-icons">build</i></div>
 {% endif %}
     {% if audio != 'true' %}
-        <div class="bt_wrapper" style="bottom: -40px">
+        <div class="bt_wrapper" style="bottom: -40px; z-index: 1111">
             <div class="note" id="translate">
                 <i class="material-icons">g_translate</i>
             </div>
@@ -379,7 +379,7 @@
                 <span class="mdl-switch__label"></span>
             </label>
         </div>
-        <div class="build" id="build" onclick="toggleToolsBar()" style="background-color: rgba(255, 0, 0, 0.55);"><i class="material-icons">build</i></div>
+        <div class="build" id="build" onclick="toggleToolsBar()"><i class="material-icons">build</i></div>
     {% endif %}
 
 

@@ -103,6 +103,9 @@
         .loaderWrapper {
             display: none;
         }
+        .choose {
+            background-color: rgba(0, 0, 0, 0.22);
+        }
 
     </style>
 {% endblock %}
@@ -131,77 +134,10 @@
 
 {% block scripts %}
     <script>
-    //custom start
+        window.onload = function () {
+            doGrid();
+        };
 
-        /*    var addForm = document.getElementById('moreBtn');
-            addForm.addEventListener('click', morePage);
-            function morePage(){
-                var request = new XMLHttpRequest();
-                request.addEventListener("load", show);
-                function show(e) {
-                    var data = e.target;
-                    if(data.status == 200){
-                        var div = document.createElement('div');
-                        div.setAttribute('class', 'formWrapper');
-
-                        div.innerHTML = data.responseText;
-                        document.body.appendChild(div);
-                        setTimeout(function () {
-                            div.classList.add('show');
-                        },10);
-                        closeModal();
-
-                    }
-                }
-            }
-*/
-
-
-
-
-        var moreBtn = document.getElementById('moreBtn');
-        moreBtn.addEventListener("click", showMoreContent);
-        var pageIndex = 12;
-        function showMoreContent(){
-            document.getElementById('spinner').style.display = 'inline-block';
-            document.querySelector('#moreBtn i').style.display = 'none';
-            var data = new FormData();
-            data.append('pageIndex',pageIndex );
-            var request = new XMLHttpRequest();
-            request.responseType = 'json';
-            request.addEventListener('load', addMoreContent);
-            request.open("POST","loadingByPices.php", true);
-            request.send(data);
-
-
-
-            pageIndex+=12;
-        }
-        function addMoreContent(e){
-            var data = e.target;
-            if (data.status == 200) {
-                document.querySelector('#moreBtn i').style.display = 'inline';
-                document.getElementById('spinner').style.display = 'none';
-                if(data.response.length < 12) {moreBtn.remove();}
-                var main = document.querySelector('main .mdl-grid');
-                data.response.forEach(function (item) {
-                    var div = document.createElement('div');
-                    div.setAttribute('class', 'mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet');
-                    div.innerHTML = item;
-                    main.appendChild(div);
-                });
-
-            }
-        }
-
-      /*  function closeModal() {
-            var cancelBtn = document.getElementById('cancel');
-            cancelBtn.addEventListener('click',close);
-            function close() {
-                var modal = document.getElementsByClassName('formWrapper')[0];
-                document.body.removeChild(modal);
-            }
-        }*/
     </script>
     <script>
         var audio = document.getElementById('audio');
@@ -274,6 +210,42 @@
         function addListenerOnWindow(ev) {
             if(ev.target.className.indexOf('show')>0){
                 hideForm(false, ev.target)
+            }
+        }
+        function doGrid(pagination) {
+            if (pagination) {
+                var newElements = document.querySelectorAll('.mdl-cell--3-col .demo-card-wide.mdl-card.mdl-shadow--2dp');
+                for(var i = pageIndex-12; i<newElements.length; i++) {
+                    newElements[i].setAttribute('position', 'relative');
+                    var startHeight2 = newElements[i].getBoundingClientRect().top;
+                    var startHeightSibling2 = newElements[i - 4].getBoundingClientRect().top;
+                    var heightSibling2 = newElements[i - 4].getBoundingClientRect().height;
+                    var height2 = startHeight2 - startHeightSibling2 - heightSibling2;
+                    if (height2 != 20) {
+                        var margin2 = height2 - 20;
+                        newElements[i].style.top = -margin2 + 'px';
+                    }
+                }
+            } else {
+                var elements = document.querySelectorAll('.mdl-cell--3-col .demo-card-wide.mdl-card.mdl-shadow--2dp');
+                elements.forEach(function (item, i, arr) {
+                    item.setAttribute('position', 'relative');
+                    if (i > 3) {
+                        var startHeight = item.getBoundingClientRect().top;
+                        var startHeightSibling = arr[i - 4].getBoundingClientRect().top;
+                        var heightSibling = arr[i - 4].getBoundingClientRect().height;
+                        var height = startHeight - startHeightSibling - heightSibling;
+                        if (height != 20) {
+                            var margin = height - 20;
+                            item.style.top = -margin + 'px';
+                        }
+                    } else {
+                        if (item.getBoundingClientRect().top != 80) {
+                            var firstLineHeight = item.getBoundingClientRect().top - 80;
+                            item.style.top = -firstLineHeight + 'px';
+                        }
+                    }
+                })
             }
         }
 
